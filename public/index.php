@@ -2,8 +2,10 @@
 /**
  * Index - Start point for any HTTP request
  *
- * @author Floris Luiten <floris@florisluiten.nl>
+ * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
  */
+require_once '../src/Bootstrap.php';
 
-echo '<!DOCTYPE html><html><head><title>Hello</title></head><body><h1>Hello</h1></body></html>';
+$response = new \Fluiten\Reactions\Response\Http();
+echo $response->handleRequest(new \Fluiten\Reactions\Request\Http($_SERVER));
