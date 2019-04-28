@@ -22,22 +22,7 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
      */
     public function testAutoloadFindsClass()
     {
-        require __DIR__ . '/../defines.php';
         require APP_DIR . 'Autoload.php';
         $this->assertNotNull(new \Fluiten\Reactions\Request\Http());
-    }
-
-    /**
-     * Test
-     *
-     * @runInSeparateProcess
-     *
-     * @return void
-     */
-    public function testAutoloadNoIncludeFailure()
-    {
-        require __DIR__ . '/../defines.php';
-        $this->expectException(\Error::class);
-        $this->assertNull(new \Fluiten\Reactions\Request\Http());
     }
 }
