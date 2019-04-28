@@ -2,7 +2,7 @@
 /**
  * HTTP request
  *
- * @author Floris Luiten <floris@florisluiten.nl>
+ * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
  */
 namespace Fluiten\Reactions\Request;
