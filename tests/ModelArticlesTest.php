@@ -1,6 +1,6 @@
 <?php
 /**
- * Test for Response\Http
+ * Test for Models\Article
  *
  * @author     Floris Luiten <floris@florisluiten.nl>
  * @package    Reactions
@@ -13,7 +13,7 @@ namespace Fluiten\Reaction\Tests;
 
 use \Fluiten\Reactions as App;
 
-class ResponseHttpTest extends \PHPUnit\Framework\TestCase
+class ModelsArticlesTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Setup for each test
@@ -29,6 +29,10 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
             "CREATE TABLE `articles` (`articleID` INTEGER PRIMARY KEY AUTOINCREMENT, "
             . "`title` VARCHAR(100) NOT NULL, `content` MEDIUMTEXT NOT NULL)"
         );
+
+        $this->database->query(
+            "INSERT INTO `articles` (`articleID`, `title`, `content`) VALUES (1, 'Hello', 'Some content')"
+        );
     }
 
     /**
@@ -36,13 +40,12 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function testHandleReponseRequiresRequest()
+    public function testNotFound()
     {
-        $response = new App\Response\Http($this->database);
+        $resource = App\Models\Articles::queryById($this->database, '12');
+        $resource->execute();
 
-        $this->expectException(\Error::class);
-
-        $response->handleRequest('string');
+        $this->assertEmpty($resource->fetch());
     }
 
     /**
@@ -50,10 +53,15 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
      *
      * @return void
      */
-    public function testHandleReponseAcceptsRequest()
+    public function testFound()
     {
-        $response = new App\Response\Http($this->database);
+        $resource = App\Models\Articles::queryById($this->database, '1');
+        $resource->execute();
 
-        $this->assertNotNull($response->handleRequest(new App\Request\Http()));
+        $answer = $resource->fetch();
+        $this->assertInstanceOf(App\Models\Articles::class, $answer);
+
+        $this->assertSame('Hello', $answer->title);
+        $this->assertSame('Some content', $answer->content);
     }
 }

@@ -12,7 +12,7 @@ namespace Fluiten\Reactions\Response;
 
 use \Fluiten\Reactions as App;
 
-class Http
+class Http extends Base
 {
     /**
      * Handle the HTTP request and return the response
@@ -23,20 +23,15 @@ class Http
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
-        return $this->parseView('articles-index');
-    }
+        $resource = App\Models\Articles::queryById($this->database, '152056');
+        $resource->execute();
 
-    /**
-     * Parse and return the view
-     *
-     * @param string $view The name of the view, eg 'index'
-     *
-     * @return string
-     */
-    private function parseView(string $view): string
-    {
-        ob_start();
-        include APP_DIR . 'Views/' . $view . '.php';
-        return ob_get_clean();
+        $article = $resource->fetch();
+
+        if (!$article) {
+            return $this->parseView('page-not-found');
+        }
+
+        return $this->parseView('articles-index', array('article' => $article));
     }
 }
