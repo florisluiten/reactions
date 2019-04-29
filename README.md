@@ -19,3 +19,8 @@ php -S localhost:8080 -t public/
 ```
 
 Then browse to http://localhost:8080 and use the application.
+
+## Testing
+
+In order to test the codebase, you must have [phpunit](https://phpunit.de)
+installed. Then you can run `phpunit` from the root of this repository.
