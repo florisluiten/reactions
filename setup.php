@@ -32,3 +32,18 @@ try {
     . 'Please look at your %senv.php file if the configuration is correct.' . PHP_EOL, $e->getMessage(), $currentPath);
     exit(3);
 }
+
+$queries = file($currentPath . 'assets/database.sql', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$failures = false;
+
+foreach ($queries as $query) {
+    if (!$database->query($query)) {
+        echo $query;
+        printf('Unable to execute query: (%i) %s' . PHP_EOL, $database->errorCode(), $database->errorInfo()[2]);
+        $failures = true;
+    }
+}
+
+if ($failures) {
+    exit(4);
+}
