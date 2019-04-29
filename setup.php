@@ -47,3 +47,5 @@ foreach ($queries as $query) {
 if ($failures) {
     exit(4);
 }
+
+echo 'Setup ok' . PHP_EOL;
