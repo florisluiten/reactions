@@ -10,6 +10,29 @@
         <link rel="stylesheet" href="stylesheets/main.css">
     </head>
     <body>
-        <p><?php echo $article->content; ?></p>
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">Reactions</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">Nieuws</a>
+                    </li>
+                    <li>
+                        <a href="#">Reviews</a>
+                    </li>
+                    <li>
+                        <a href="#">Meer</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="container">
+            <main>
+                <h1><?php echo htmlentities($article->title, 0, 'UTF-8'); ?></h1>
+                <?php echo $article->content; ?>
+            </main>
+        </div>
     </body>
 </html>
