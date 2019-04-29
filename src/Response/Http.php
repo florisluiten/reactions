@@ -29,12 +29,17 @@ class Http
     /**
      * Parse and return the view
      *
-     * @param string $view The name of the view, eg 'index'
+     * @param string  $view The name of the view, eg 'index'
+     * @param mixed[] $data The data to pass the view
      *
      * @return string
      */
-    private function parseView(string $view): string
+    private function parseView(string $view, $data = array()): string
     {
+        foreach ($data as $key => $value) {
+            $$key = $value;
+        }
+
         ob_start();
         include APP_DIR . 'Views/' . $view . '.php';
         return ob_get_clean();
