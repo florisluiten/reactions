@@ -15,6 +15,23 @@ use \Fluiten\Reactions as App;
 abstract class Base
 {
     /**
+     * @var \PDO $database The current database connection
+     */
+    protected $database;
+
+    /**
+     * Constructor
+     *
+     * @param \PDO $database The database
+     *
+     * @return string
+     */
+    public function __construct(\PDO $database)
+    {
+        $this->database = $database;
+    }
+
+    /**
      * Parse and return the view
      *
      * @param string  $view The name of the view, eg 'index'

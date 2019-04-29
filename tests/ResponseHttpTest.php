@@ -16,13 +16,24 @@ use \Fluiten\Reactions as App;
 class ResponseHttpTest extends \PHPUnit\Framework\TestCase
 {
     /**
+     * Setup for each test
+     *
+     * @return void
+     */
+    public function setUp(): void
+    {
+        $this->database = new \PDO('sqlite::memory:');
+        $this->database->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+
+    /**
      * Test
      *
      * @return void
      */
     public function testHandleReponseRequiresRequest()
     {
-        $response = new App\Response\Http();
+        $response = new App\Response\Http($this->database);
 
         $this->expectException(\Error::class);
 
@@ -36,7 +47,7 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
      */
     public function testHandleReponseAcceptsRequest()
     {
-        $response = new App\Response\Http();
+        $response = new App\Response\Http($this->database);
 
         $this->assertNotNull($response->handleRequest(new App\Request\Http()));
     }
