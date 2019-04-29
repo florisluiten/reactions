@@ -24,6 +24,11 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
     {
         $this->database = new \PDO('sqlite::memory:');
         $this->database->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+
+        $this->database->query(
+            "CREATE TABLE `articles` (`articleID` INTEGER PRIMARY KEY AUTOINCREMENT, "
+            . "`title` VARCHAR(100) NOT NULL, `content` MEDIUMTEXT NOT NULL)"
+        );
     }
 
     /**

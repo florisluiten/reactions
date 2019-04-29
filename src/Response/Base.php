@@ -39,7 +39,7 @@ abstract class Base
      *
      * @return string
      */
-    private function parseView(string $view, $data = array()): string
+    protected function parseView(string $view, $data = array()): string
     {
         foreach ($data as $key => $value) {
             $$key = $value;

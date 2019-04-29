@@ -23,6 +23,15 @@ class Http extends Base
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
-        return $this->parseView('articles-index');
+        $resource = App\Models\Articles::queryById($this->database, '152056');
+        $resource->execute();
+
+        $article = $resource->fetch();
+
+        if (!$article) {
+            return $this->parseView('page-not-found');
+        }
+
+        return $this->parseView('articles-index', array('article' => $article));
     }
 }
