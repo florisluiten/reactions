@@ -38,8 +38,10 @@ $failures = false;
 
 foreach ($queries as $query) {
     if (!$database->query($query)) {
-        echo $query;
         printf('Unable to execute query: (%i) %s' . PHP_EOL, $database->errorCode(), $database->errorInfo()[2]);
+        echo PHP_EOL;
+        echo $query;
+        echo PHP_EOL;
         $failures = true;
     }
 }
