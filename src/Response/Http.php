@@ -23,6 +23,20 @@ class Http
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
-        return '<!DOCTYPE html><html><head><title>Hello</title></head><body><h1>Hello</h1></body></html>';
+        return $this->parseView('articles-index');
+    }
+
+    /**
+     * Parse and return the view
+     *
+     * @param string $view The name of the view, eg 'index'
+     *
+     * @return string
+     */
+    private function parseView(string $view): string
+    {
+        ob_start();
+        include APP_DIR . 'Views/' . $view . '.php';
+        return ob_get_clean();
     }
 }

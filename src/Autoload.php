@@ -9,9 +9,9 @@
 declare(strict_types=1);
 
 spl_autoload_register(function ($class) {
-    if (substr($class, 0, 8) !== 'Fluiten\\') {
+    if (substr($class, 0, 18) !== 'Fluiten\\Reactions\\') {
         return false;
     }
 
-    return include APP_DIR . str_replace('\\', '/', $class) . '.php';
+    return include APP_DIR . str_replace('\\', '/', substr($class, 18)) . '.php';
 });
