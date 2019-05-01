@@ -19,6 +19,12 @@ On Ubuntu it is as easy as running:
 sudo apt install php php-mysql
 ```
 
+In case you want to run the tests too, you need the Sqlite3 PDO driver:
+
+```bash
+sudo apt install php-sqlite3
+```
+
 ## MySQL server
 
 You must have a running MySQL (MariaDB) running. This can either be
