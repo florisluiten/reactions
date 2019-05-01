@@ -25,12 +25,12 @@ class Articles
     public $content;
 
     /**
-     * Handle the HTTP request and return the response
+     * Return the query for getting the articles
      *
-     * @param \Fluiten\Reactions\Request\Http $request The HTTP request
-     * @param string                          $ID      The article ID
+     * @param \PDO   $database The database handle
+     * @param string $ID       The article ID
      *
-     * @return string
+     * @return \PDOStatement
      */
     public function queryById(\PDO $database, string $ID): ? \PDOStatement
     {
