@@ -70,4 +70,31 @@ class Reactions
 
         return $statement;
     }
+
+    /**
+     * Return the reactions in a tree layout
+     *
+     * @param \PDO   $database The database handle
+     * @param string $ID       The article ID
+     *
+     * @return \PDOStatement
+     */
+    public function getThread(\PDO $database, string $articleID): array
+    {
+        $reactions = array();
+
+        $statement = self::queryByArticle($database, $articleID);
+        $statement->execute();
+
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+            $reactions[] = array_merge(
+                $row,
+                array(
+                    'ID' => $row['reactionID']
+                )
+            );
+        }
+
+        return App\arrayToTree($reactions);
+    }
 }
