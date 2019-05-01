@@ -94,6 +94,11 @@ function scoreToWord($score)
                 <ol class="reactions">
 <?php renderReactions($reactions); ?>
                 </ol>
+                <form method="POST" action="?">
+                    <label for="reaction">Reageer:</label>
+                    <textarea name="reaction"></textarea>
+                    <input type="submit" value="send">
+                </form>
             </section>
         </div>
     </body>
