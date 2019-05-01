@@ -1,38 +1,4 @@
 <?php
-$reactions = array(
-    array(
-        'header' => '1',
-        'children' => array(
-            array(
-                'header' => '1.1',
-                'children' => array(
-                    array(
-                        'header' => '1.1.1',
-                        'children' => array()
-                    ),
-                    array(
-                        'header' => '1.1.2',
-                        'children' => array()
-                    )
-                )
-            )
-        )
-    ),
-    array(
-        'header' => '2',
-        'children' => array(
-            array(
-                'header' => '2.1',
-                'children' => array()
-            ),
-            array(
-                'header' => '2.2',
-                'children' => array()
-            )
-        )
-    )
-);
-
 /**
  * Macro for rendering a reaction
  *
@@ -44,7 +10,7 @@ function renderReactions($reactions)
 {
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
-		<h2><img src="http://lorempixel.com/60/60/people/' . $i . '"><a href="#">' . $reaction['header'] . '</a></h2>
+		<h2><img src="http://lorempixel.com/60/60/people/' . $i . '"><a href="#">Username</a></h2>
 		<form method="POST" action="score" class="score-reaction">
 			<label for="score-1">Score</label>
 			<select name="score" id="score-1">
@@ -56,9 +22,9 @@ function renderReactions($reactions)
 			</select>
 			<input type="submit" value="Geef deze score">
 		</form>
-		<div class="currentscore">+2</div>
-		<time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
-		<div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
+		<div class="currentscore">' . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
+		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
+		<div class="usercontent">' . $reaction['content'] . '</div>
 		<ol>';
         renderReactions($reaction['children']);
         echo ' </ol> </li>';
