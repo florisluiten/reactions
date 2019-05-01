@@ -100,4 +100,30 @@ class Reactions
 
         return App\arrayToTree($reactions);
     }
+
+    /**
+     * Add a new comment
+     *
+     * @param \PDO $database The database connection
+     * @param App\Models\Reaction $reaction The reaction
+     *
+     * @return boolean True on success, false otherwise
+     */
+    public function add(\PDO $database, App\Models\Reactions $reaction)
+    {
+        $now = (new \Datetime())->format('Y-m-d H:i:s');
+
+        $statement = $database->prepare(
+            "INSERT INTO `reactions` (`parentID`, `articleID`, `score`, `userID`, `publishDate`, `content`)"
+            . " VALUES(:PARENTID, :ARTICLEID, 0, :USERID, :NOW, :CONTENT)"
+        );
+
+        $statement->bindParam(':PARENTID', $reaction->parentID);
+        $statement->bindParam(':ARTICLEID', $reaction->articleID);
+        $statement->bindParam(':USERID', $reaction->userID);
+        $statement->bindParam(':NOW', $now);
+        $statement->bindParam(':CONTENT', $reaction->content);
+
+        return $statement->execute();
+    }
 }

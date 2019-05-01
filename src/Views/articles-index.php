@@ -26,6 +26,12 @@ function renderReactions($reactions)
         . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
 		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
+		<form method="POST" action="?">
+			<label for="reaction">Reageer:</label>
+			<textarea name="reaction"></textarea>
+			<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
+			<input type="submit" value="send">
+		</form>
 		<ol>';
         renderReactions($reaction['children']);
         echo ' </ol> </li>';
@@ -94,6 +100,11 @@ function scoreToWord($score)
                 <ol class="reactions">
 <?php renderReactions($reactions); ?>
                 </ol>
+                <form method="POST" action="?">
+                    <label for="reaction">Reageer:</label>
+                    <textarea name="reaction"></textarea>
+                    <input type="submit" value="send">
+                </form>
             </section>
         </div>
     </body>

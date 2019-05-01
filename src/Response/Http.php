@@ -23,6 +23,10 @@ class Http extends Base
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
+        if (isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->insertReaction($_POST['reaction'], $_POST['replyto'] ?? null);
+        }
+
         $resource = App\Models\Articles::queryById($this->database, '152056');
         $resource->execute();
 
@@ -35,5 +39,26 @@ class Http extends Base
         $reactions = App\Models\Reactions::getThread($this->database, '152056');
 
         return $this->parseView('articles-index', array('article' => $article, 'reactions' => $reactions));
+    }
+
+    /**
+     * Handle inserting new reaction
+     *
+     * @param string $reaction The reaction
+     * @param string $replyTo  The reactionID in case of a reply, defaults
+     *                         to NULL
+     *
+     * @return string
+     */
+    public function insertReaction(string $reaction, string $replyTo = null)
+    {
+        $newReaction = new App\Models\Reactions();
+        $newReaction->articleID = '152056';
+        $newReaction->userID = '1';
+        $newReaction->content = nl2br(htmlentities($reaction, 0, 'UTF-8'));
+        $newReaction->parentID = $replyTo;
+        $newReaction->publishDate = new \Datetime();
+
+        return App\Models\Reactions::add($this->database, $newReaction);
     }
 }
