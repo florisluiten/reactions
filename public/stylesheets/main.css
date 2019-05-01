@@ -1,3 +1,37 @@
 body {
 	padding-top: 20px;
 }
+ol.reactions, ol.reactions li {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+ol.reactions li {
+	border: 1px solid #ccc;
+	padding: 5px 20px;
+	margin-bottom: 10px;
+	position: relative;
+}
+ol.reactions li .currentscore {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-weight: bold;
+	font-size: 2em;
+	color: #fff;
+	background-color: #ccc;
+	padding: 7px 10px;
+}
+ol.reactions li time {
+	font-size: .9em;
+	color: #888;
+}
+ol.reactions li h2 > img {
+	margin-right: 10px;
+	border-radius: 50%;
+}
+ol.reactions li h2 > a:hover,
+ol.reactions li h2 > a {
+	text-decoration: none;
+	color: #337ab7;
+}
