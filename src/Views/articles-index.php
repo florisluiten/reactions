@@ -10,7 +10,7 @@ function renderReactions($reactions)
 {
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
-		<h2><img src="http://lorempixel.com/60/60/people/' . $i . '"><a href="#">' . $reaction['username'] . '</a></h2>
+		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>
 		<form method="POST" action="score" class="score-reaction">
 			<label for="score-1">Score</label>
 			<select name="score" id="score-1">

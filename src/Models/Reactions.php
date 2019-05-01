@@ -62,7 +62,7 @@ class Reactions
         $statement = $database->prepare(
             'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, `reactions`.`score`, '
             . '`reactions`.`userID`, `reactions`.`publishDate`, `reactions`.`content`, '
-            . '`users`.`name` as username '
+            . '`users`.`name` as username, `users`.`image` as userimage '
             . 'FROM `reactions` '
             . 'LEFT JOIN `users` ON `users`.`userID` = `reactions`.`userID` '
             . 'WHERE articleID = :ID'
