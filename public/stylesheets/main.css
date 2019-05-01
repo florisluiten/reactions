@@ -22,6 +22,18 @@ ol.reactions li .currentscore {
 	background-color: #ccc;
 	padding: 7px 10px;
 }
+ol.reactions li .currentscore.low {
+	background-color: #f64;
+}
+ol.reactions li .currentscore.good {
+	background-color: #e5e577;
+}
+ol.reactions li .currentscore.high {
+	background-color: #ff2;
+}
+ol.reactions li .currentscore.veryhigh {
+	background-color: #6f4;
+}
 ol.reactions li time {
 	font-size: .9em;
 	color: #888;

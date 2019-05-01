@@ -22,12 +22,36 @@ function renderReactions($reactions)
 			</select>
 			<input type="submit" value="Geef deze score">
 		</form>
-		<div class="currentscore">' . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
+		<div class="currentscore ' . scoreToWord($reaction['score']) . '">'
+        . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
 		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
 		<ol>';
         renderReactions($reaction['children']);
         echo ' </ol> </li>';
+    }
+}
+
+/**
+ * Macro for transforming the score to a generic word. Eg "-1" to "low"
+ *
+ * @param string $score The score
+ *
+ * @return string
+ */
+function scoreToWord($score)
+{
+    switch ($score) {
+        case '-1':
+            return 'low';
+        case '0':
+            return 'neutral';
+        case 1:
+            return 'good';
+        case 2:
+            return 'high';
+        case 3:
+            return 'veryhigh';
     }
 }
 ?>
