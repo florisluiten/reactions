@@ -32,7 +32,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
 
         $this->database->query(
             "CREATE TABLE `users` ( `userID` INTEGER  PRIMARY KEY AUTOINCREMENT, "
-            . "`name` VARCHAR(100) NOT NULL) "
+            . "`name` VARCHAR(100) NOT NULL, "
+            . "`image` VARCHAR(100) NULL) "
         );
 
         $this->database->query(
