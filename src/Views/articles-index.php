@@ -1,3 +1,70 @@
+<?php
+$reactions = array(
+    array(
+        'header' => '1',
+        'children' => array(
+            array(
+                'header' => '1.1',
+                'children' => array(
+                    array(
+                        'header' => '1.1.1',
+                        'children' => array()
+                    ),
+                    array(
+                        'header' => '1.1.2',
+                        'children' => array()
+                    )
+                )
+            )
+        )
+    ),
+    array(
+        'header' => '2',
+        'children' => array(
+            array(
+                'header' => '2.1',
+                'children' => array()
+            ),
+            array(
+                'header' => '2.2',
+                'children' => array()
+            )
+        )
+    )
+);
+
+/**
+ * Macro for rendering a reaction
+ *
+ * @param App\Reaction[] $reactions The reactions
+ *
+ * @return void
+ */
+function renderReactions($reactions)
+{
+    foreach ($reactions as $i => $reaction) {
+        echo '<li class="reaction">
+		<h2><img src="http://lorempixel.com/60/60/people/' . $i . '"><a href="#">' . $reaction['header'] . '</a></h2>
+		<form method="POST" action="score" class="score-reaction">
+			<label for="score-1">Score</label>
+			<select name="score" id="score-1">
+				<option value="-1">-1</option>
+				<option value="0">0</option>
+				<option value="1">+1</option>
+				<option value="2">+2</option>
+				<option value="3">+3</option>
+			</select>
+			<input type="submit" value="Geef deze score">
+		</form>
+		<div class="currentscore">+2</div>
+		<time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
+		<div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
+		<ol>';
+        renderReactions($reaction['children']);
+        echo ' </ol> </li>';
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,76 +102,7 @@
             </main>
             <section class="reactions">
                 <ol class="reactions">
-                    <li class="reaction">
-                        <h2><img src="http://lorempixel.com/60/60/people/1"><a href="#">tincidunt91</a></h2>
-                        <form method="POST" action="score" class="score-reaction">
-                            <label for="score-1">Score</label>
-                            <select name="score" id="score-1">
-                                <option value="-1">-1</option>
-                                <option value="0">0</option>
-                                <option value="1">+1</option>
-                                <option value="2">+2</option>
-                                <option value="3">+3</option>
-                            </select>
-                            <input type="submit" value="Geef deze score">
-                        </form>
-                        <div class="currentscore">+2</div>
-                        <time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
-                        <div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
-                        <ol>
-                            <li class="reaction">
-                                <h2><img src="http://lorempixel.com/60/60/people/3"><a href="#">justoNibh99</a></h2>
-                                <form method="POST" action="score" class="score-reaction">
-                                    <label for="score-1">Score</label>
-                                    <select name="score" id="score-1">
-                                        <option value="-1">-1</option>
-                                        <option value="0">0</option>
-                                        <option value="1">+1</option>
-                                        <option value="2">+2</option>
-                                        <option value="3">+3</option>
-                                    </select>
-                                    <input type="submit" value="Geef deze score">
-                                </form>
-                                <div class="currentscore">+2</div>
-                                <time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
-                                <div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
-                            </li>
-                            <li class="reaction">
-                                <h2><img src="http://lorempixel.com/60/60/people/4"><a href="#">dap1bus</a></h2>
-                                <form method="POST" action="score" class="score-reaction">
-                                    <label for="score-1">Score</label>
-                                    <select name="score" id="score-1">
-                                        <option value="-1">-1</option>
-                                        <option value="0">0</option>
-                                        <option value="1">+1</option>
-                                        <option value="2">+2</option>
-                                        <option value="3">+3</option>
-                                    </select>
-                                    <input type="submit" value="Geef deze score">
-                                </form>
-                                <div class="currentscore">+2</div>
-                                <time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
-                                <div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li class="reaction">
-                        <h2><img src="http://lorempixel.com/60/60/people/2"><a href="#">-leo-</a></h2>
-                        <form method="POST" action="score" class="score-reaction">
-                            <label for="score-1">Score</label>
-                            <select name="score" id="score-1">
-                                <option value="-1">-1</option>
-                                <option value="0">0</option>
-                                <option value="1">+1</option>
-                                <option value="2">+2</option>
-                                <option value="3">+3</option>
-                            </select>
-                            <input type="submit" value="Geef deze score">
-                        </form>
-                        <div class="currentscore">+1</div>
-                        <time datetime="2019-04-29 21:32">29 april 2019 21:32</time>
-                        <div class="usercontent"><p>Lorem ipsum dolor sit amet</p></div>
-                    </li>
+<?php renderReactions($reactions); ?>
                 </ol>
             </section>
         </div>
