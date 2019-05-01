@@ -9,7 +9,7 @@
 
 declare(strict_types=1);
 
-namespace Fluiten\Reaction\Tests;
+namespace Fluiten\Reactions\Tests;
 
 class AutoloaderTest extends \PHPUnit\Framework\TestCase
 {
