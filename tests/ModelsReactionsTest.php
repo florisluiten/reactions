@@ -206,4 +206,37 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('2.1', $answer[1]['children'][0]['content']);
         $this->assertSame('2.2', $answer[1]['children'][1]['content']);
     }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testCreate()
+    {
+        $reaction = new App\Models\Reactions();
+        $reaction->articleID = 1;
+        $reaction->userID = 1;
+        $reaction->content = 'Blaat';
+        $reaction->parentID = null;
+
+        $reply = new App\Models\Reactions();
+        $reply->articleID = 1;
+        $reply->userID = 2;
+        $reply->parentID = 1;
+        $reply->content = 'Oh, really?!';
+
+        $this->assertTrue(App\Models\Reactions::add($this->database, $reaction));
+        $this->assertTrue(App\Models\Reactions::add($this->database, $reply));
+
+        $answer = App\Models\Reactions::getThread($this->database, '1');
+
+        $this->assertNotEmpty($answer);
+
+        $this->assertCount(1, $answer);
+        $this->assertCount(1, $answer[0]['children']);
+
+        $this->assertSame('Blaat', $answer[0]['content']);
+        $this->assertSame('Oh, really?!', $answer[0]['children'][0]['content']);
+    }
 }
