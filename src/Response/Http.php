@@ -31,7 +31,9 @@ class Http extends Base
         if (!$article) {
             return $this->parseView('page-not-found');
         }
+        
+        $reactions = App\Models\Reactions::getThread($this->database, '152056');
 
-        return $this->parseView('articles-index', array('article' => $article));
+        return $this->parseView('articles-index', array('article' => $article, 'reactions' => $reactions));
     }
 }
