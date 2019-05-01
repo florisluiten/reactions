@@ -60,8 +60,11 @@ class Reactions
     public function queryByArticle(\PDO $database, string $articleID): ? \PDOStatement
     {
         $statement = $database->prepare(
-            'SELECT `reactionID`, `parentID`, `articleID`, `score`, `userID`, `publishDate`, `content` '
+            'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, `reactions`.`score`, '
+            . '`reactions`.`userID`, `reactions`.`publishDate`, `reactions`.`content`, '
+            . '`users`.`name` as username '
             . 'FROM `reactions` '
+            . 'LEFT JOIN `users` ON `users`.`userID` = `reactions`.`userID` '
             . 'WHERE articleID = :ID'
         );
         $statement->bindParam(':ID', $articleID);
