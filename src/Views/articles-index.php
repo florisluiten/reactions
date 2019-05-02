@@ -11,7 +11,7 @@ function renderReactions($reactions)
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
 		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>
-		<form method="POST" action="score" class="score-reaction">
+		<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
 			<label for="score-1">Score</label>
 			<select name="score" id="score-1">
 				<option value="-1">-1</option>

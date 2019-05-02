@@ -33,6 +33,21 @@ class Http extends Base
             list($slash, $news, $articleID) = explode('/', $path, 3);
 
             return $this->displayArticle($articleID);
+        } elseif (substr($path, 0, 7) == '/score/' and
+            isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST'
+        ) {
+            list($slash, $news, $reactionID) = explode('/', $path, 4);
+
+            $newReaction = new App\Models\Scores();
+            $newReaction->reactionID = $reactionID;
+            $newReaction->userID = '1';
+            $newReaction->score = $_POST['score'];
+
+            if (App\Models\Scores::add($this->database, $newReaction)) {
+                header('HTTP/1.1 302 Found');
+                header('Location: /news/152056');
+                return 'Please be redirected';
+            }
         }
 
         return 'Page not found';
