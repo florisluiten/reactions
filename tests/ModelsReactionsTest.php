@@ -268,4 +268,27 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('0', $reaction['score']);
     }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testGetById()
+    {
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `score`, `userID`, `publishDate`, `content`) "
+            . "VALUES (1, 1, 0, 1, '2018-01-01 12:12:12', 'Some content')"
+        );
+
+        $answer = App\Models\Reactions::getById($this->database, '1');
+
+        $this->assertNotEmpty($answer);
+
+        $this->assertInstanceOf(App\Models\Reactions::class, $answer);
+
+        $this->assertSame('Some content', $answer->content);
+
+        $this->assertEmpty(App\Models\Reactions::getById($this->database, '42'));
+    }
 }

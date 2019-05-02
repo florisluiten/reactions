@@ -130,4 +130,41 @@ class Reactions
 
         return $statement->execute();
     }
+
+    /**
+     * Get a specific reaction
+     *
+     * @param \PDO   $database   The database connection
+     * @param string $reactionID The reactionID
+     *
+     * @return App\Models\Reaction The reaction, or null
+     */
+    public function getById(\PDO $database, string $reactionID): ? App\Models\Reactions
+    {
+        $statement = $database->prepare(
+            'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
+            . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
+            . ' FROM `reactionScores` '
+            . ' WHERE reactions.reactionID = reactionScores.reactionID'
+            . ') as score, '
+            . '`reactions`.`userID`, `reactions`.`publishDate`, `reactions`.`content`, '
+            . '`users`.`name` as username, `users`.`image` as userimage, `users`.`userID` as userID '
+            . 'FROM `reactions` '
+            . 'LEFT JOIN `users` ON `users`.`userID` = `reactions`.`userID` '
+            . 'WHERE reactionID = :REACTIONID'
+        );
+        $statement->bindParam(':REACTIONID', $reactionID);
+
+        $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
+        $statement->execute();
+
+        $result = $statement->fetch();
+
+        if ($result === false) {
+            // Yeah, SQLite returns false, where MySQLI returns null
+            return null;
+        }
+
+        return $result;
+    }
 }
