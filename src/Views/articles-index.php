@@ -11,7 +11,7 @@ function renderReactions($reactions)
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
 		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>
-		<form method="POST" action="score" class="score-reaction">
+		<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
 			<label for="score-1">Score</label>
 			<select name="score" id="score-1">
 				<option value="-1">-1</option>
@@ -70,7 +70,7 @@ function scoreToWord($score)
         <title>Hello</title>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="stylesheets/main.css">
+        <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
         <div class="container">

@@ -23,6 +23,6 @@ class AutoloaderTest extends \PHPUnit\Framework\TestCase
     public function testAutoloadFindsClass()
     {
         require APP_DIR . 'Autoload.php';
-        $this->assertNotNull(new \Fluiten\Reactions\Request\Http());
+        $this->assertNotNull(new \Fluiten\Reactions\Request\Http(array('REQUEST_URI' => '/news/1234')));
     }
 }
