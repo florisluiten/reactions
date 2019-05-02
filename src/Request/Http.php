@@ -28,4 +28,14 @@ class Http
     {
         $this->server = $server;
     }
+
+    /**
+     * Returns the path of the request, eg '/1234/filename'
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return parse_url($this->server['REQUEST_URI'], \PHP_URL_PATH);
+    }
 }
