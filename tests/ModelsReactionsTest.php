@@ -161,6 +161,33 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
      *
      * @return void
      */
+    public function testGetThreadReversed()
+    {
+        $this->setupThread();
+
+        $answer = App\Models\Reactions::getThread($this->database, '1', \SORT_NEWEST_FIRST);
+
+        $this->assertSame('2', $answer[0]['content']);
+        $this->assertSame('1', $answer[1]['content']);
+
+        $this->assertSame('2.2', $answer[0]['children'][0]['content']);
+        $this->assertSame('2.1', $answer[0]['children'][1]['content']);
+
+        $this->assertSame('1.2', $answer[1]['children'][0]['content']);
+        $this->assertSame('1.1', $answer[1]['children'][1]['content']);
+
+        $this->assertSame('1.1.3', $answer[1]['children'][1]['children'][0]['content']);
+        $this->assertSame('1.1.2', $answer[1]['children'][1]['children'][1]['content']);
+        $this->assertSame('1.1.1', $answer[1]['children'][1]['children'][2]['content']);
+
+        $this->assertSame('1.2.1', $answer[1]['children'][0]['children'][0]['content']);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
     public function testGetByArticleSorting()
     {
         $this->setupThread();
