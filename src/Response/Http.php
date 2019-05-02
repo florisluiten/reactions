@@ -23,6 +23,10 @@ class Http extends Base
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
+        // User has logged in via Telepathy™
+        $this->user = new \StdClass();
+        $this->user->userID = '1';
+
         $path = $request->getPath();
 
         if ($path == '' or $path == '/') {
@@ -40,7 +44,7 @@ class Http extends Base
 
             $newReaction = new App\Models\Scores();
             $newReaction->reactionID = $reactionID;
-            $newReaction->userID = '1';
+            $newReaction->userID = $this->user->userID;
             $newReaction->score = $_POST['score'];
 
             if (App\Models\Scores::add($this->database, $newReaction)) {
@@ -94,7 +98,7 @@ class Http extends Base
     {
         $newReaction = new App\Models\Reactions();
         $newReaction->articleID = $articleID;
-        $newReaction->userID = '1';
+        $newReaction->userID = $this->user->userID;
         $newReaction->content = nl2br(htmlentities($reaction, 0, 'UTF-8'));
         $newReaction->parentID = $replyTo;
         $newReaction->publishDate = new \Datetime();
