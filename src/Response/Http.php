@@ -48,7 +48,7 @@ class Http extends Base
     private function displayArticle($articleID)
     {
         if (isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->insertReaction($_POST['reaction'], $_POST['replyto'] ?? null);
+            $this->insertReaction($articleID, $_POST['reaction'], $_POST['replyto'] ?? null);
         }
 
         $resource = App\Models\Articles::queryById($this->database, $articleID);
@@ -74,10 +74,10 @@ class Http extends Base
      *
      * @return string
      */
-    public function insertReaction(string $reaction, string $replyTo = null)
+    public function insertReaction(string $articleID, string $reaction, string $replyTo = null)
     {
         $newReaction = new App\Models\Reactions();
-        $newReaction->articleID = '152056';
+        $newReaction->articleID = $articleID;
         $newReaction->userID = '1';
         $newReaction->content = nl2br(htmlentities($reaction, 0, 'UTF-8'));
         $newReaction->parentID = $replyTo;
