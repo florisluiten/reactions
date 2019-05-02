@@ -60,7 +60,11 @@ class Reactions
     public function queryByArticle(\PDO $database, string $articleID): ? \PDOStatement
     {
         $statement = $database->prepare(
-            'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, `reactions`.`score`, '
+            'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
+            . '(SELECT IFNULL(AVG(`score`), 0) '
+            . ' FROM `reactionScores` '
+            . ' WHERE reactions.reactionID = reactionScores.reactionID'
+            . ') as score, '
             . '`reactions`.`userID`, `reactions`.`publishDate`, `reactions`.`content`, '
             . '`users`.`name` as username, `users`.`image` as userimage '
             . 'FROM `reactions` '
