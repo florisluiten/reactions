@@ -90,16 +90,18 @@ class Reactions
     /**
      * Return the reactions in a tree layout
      *
-     * @param \PDO   $database The database handle
-     * @param string $ID       The article ID
+     * @param \PDO    $database The database handle
+     * @param string  $ID       The article ID
+     * @param integer $sort     Indicate the sorting, defaults to
+     *                          SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
-    public function getThread(\PDO $database, string $articleID): array
+    public function getThread(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): array
     {
         $reactions = array();
 
-        $statement = self::queryByArticle($database, $articleID);
+        $statement = self::queryByArticle($database, $articleID, $sort);
         $statement->execute();
 
         while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
