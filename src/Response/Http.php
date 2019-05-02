@@ -50,6 +50,7 @@ class Http extends Base
             }
         }
 
+        header('HTTP/1.1 Page not found');
         return 'Page not found';
     }
 
