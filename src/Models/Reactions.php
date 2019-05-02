@@ -61,7 +61,7 @@ class Reactions
     {
         $statement = $database->prepare(
             'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
-            . '(SELECT IFNULL(AVG(`score`), 0) '
+            . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
             . ' FROM `reactionScores` '
             . ' WHERE reactions.reactionID = reactionScores.reactionID'
             . ') as score, '
