@@ -158,6 +158,13 @@ class Reactions
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
         $statement->execute();
 
-        return $statement->fetch();
+        $result = $statement->fetch();
+
+        if ($result === false) {
+            // Yeah, SQLite returns false, where MySQLI returns null
+            return null;
+        }
+
+        return $result;
     }
 }
