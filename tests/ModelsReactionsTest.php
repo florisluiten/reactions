@@ -42,7 +42,7 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
             . "`articleID` BIGINT UNSIGNED NOT NULL, "
             . "`score` INT NULL DEFAULT 0, "
             . "`userID` BIGINT UNSIGNED NOT NULL, "
-            . "`publishDate` VARCHAR(45) NULL, "
+            . "`publishDate` DATETIME NULL, "
             . "`content` TEXT NOT NULL, "
             . "UNIQUE (`reactionID`), "
             . "FOREIGN KEY (`parentID`) REFERENCES `reactions` (`reactionID`), "
@@ -125,73 +125,13 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test retreiving reactions as thread. Should represent the following
-     * structure:
-     *
-     *  1             reactionID:  1, parentID: null
-     *   ├─1.1        reactionID:  4, parentID: 1
-     *   │  ├ 1.1.1   reactionID:  6, parentID: 4
-     *   │  ├ 1.1.2   reactionID:  7, parentID: 4
-     *   │  └ 1.1.3   reactionID:  9, parentID: 4
-     *   └─1.2        reactionID:  5, parentID: 1
-     *      └ 1.2.1   reactionID:  8, parentID: 5
-     *  2             reactionID:  2, parentID: null
-     *   ├─2.1        reactionID:  3, parentID: 2
-     *   └─2.2        reactionID: 10, parentID: 2
+     * Test
      *
      * @return void
      */
     public function testGetThread()
     {
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (1, 1, null, '1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (2, 1, null, '2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (3, 1, 2, '2.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (4, 1, 1, '1.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (5, 1, 1, '1.2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (6, 1, 4, '1.1.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (7, 1, 4, '1.1.2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (8, 1, 5, '1.2.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (9, 1, 4, '1.1.3', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (10, 1, 2, '2.2', 1)"
-        );
+        $this->setupThread();
 
         $answer = App\Models\Reactions::getThread($this->database, '1');
 
@@ -214,6 +154,73 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('2', $answer[1]['content']);
         $this->assertSame('2.1', $answer[1]['children'][0]['content']);
         $this->assertSame('2.2', $answer[1]['children'][1]['content']);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testGetThreadReversed()
+    {
+        $this->setupThread();
+
+        $answer = App\Models\Reactions::getThread($this->database, '1', \SORT_NEWEST_FIRST);
+
+        $this->assertSame('2', $answer[0]['content']);
+        $this->assertSame('1', $answer[1]['content']);
+
+        $this->assertSame('2.2', $answer[0]['children'][0]['content']);
+        $this->assertSame('2.1', $answer[0]['children'][1]['content']);
+
+        $this->assertSame('1.2', $answer[1]['children'][0]['content']);
+        $this->assertSame('1.1', $answer[1]['children'][1]['content']);
+
+        $this->assertSame('1.1.3', $answer[1]['children'][1]['children'][0]['content']);
+        $this->assertSame('1.1.2', $answer[1]['children'][1]['children'][1]['content']);
+        $this->assertSame('1.1.1', $answer[1]['children'][1]['children'][2]['content']);
+
+        $this->assertSame('1.2.1', $answer[1]['children'][0]['children'][0]['content']);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testGetByArticleSorting()
+    {
+        $this->setupThread();
+
+        $resource = App\Models\Reactions::queryByArticle($this->database, '1');
+        $resource->execute();
+
+        $this->assertSame('1', ($resource->fetch())->content);
+        $this->assertSame('2', ($resource->fetch())->content);
+        $this->assertSame('2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1', ($resource->fetch())->content);
+        $this->assertSame('1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.2', ($resource->fetch())->content);
+        $this->assertSame('1.2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.3', ($resource->fetch())->content);
+        $this->assertSame('2.2', ($resource->fetch())->content);
+        $this->assertEmpty($resource->fetch());
+
+        $resource = App\Models\Reactions::queryByArticle($this->database, '1', \SORT_NEWEST_FIRST);
+        $resource->execute();
+
+        $this->assertSame('2.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.3', ($resource->fetch())->content);
+        $this->assertSame('1.2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.1', ($resource->fetch())->content);
+        $this->assertSame('1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1', ($resource->fetch())->content);
+        $this->assertSame('2.1', ($resource->fetch())->content);
+        $this->assertSame('2', ($resource->fetch())->content);
+        $this->assertSame('1', ($resource->fetch())->content);
+        $this->assertEmpty($resource->fetch());
     }
 
     /**
@@ -290,5 +297,73 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Some content', $answer->content);
 
         $this->assertEmpty(App\Models\Reactions::getById($this->database, '42'));
+    }
+
+    /**
+     *
+     * Setup database for a thread like this:
+     *
+     *  1             reactionID:  1, parentID: null
+     *   ├─1.1        reactionID:  4, parentID: 1
+     *   │  ├ 1.1.1   reactionID:  6, parentID: 4
+     *   │  ├ 1.1.2   reactionID:  7, parentID: 4
+     *   │  └ 1.1.3   reactionID:  9, parentID: 4
+     *   └─1.2        reactionID:  5, parentID: 1
+     *      └ 1.2.1   reactionID:  8, parentID: 5
+     *  2             reactionID:  2, parentID: null
+     *   ├─2.1        reactionID:  3, parentID: 2
+     *   └─2.2        reactionID: 10, parentID: 2
+     */
+    private function setupThread()
+    {
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (1, 1, null, '1', 1, '2019-04-25 16:20:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (2, 1, null, '2', 1, '2019-04-25 16:24:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (3, 1, 2, '2.1', 1, '2019-04-25 16:55:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (4, 1, 1, '1.1', 1, '2019-04-25 17:34:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (5, 1, 1, '1.2', 1, '2019-04-25 17:35:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (6, 1, 4, '1.1.1', 1, '2019-04-25 17:36:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (7, 1, 4, '1.1.2', 1, '2019-04-25 17:37:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (8, 1, 5, '1.2.1', 1, '2019-04-25 17:38:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (9, 1, 4, '1.1.3', 1, '2019-04-25 17:39:00')"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (10, 1, 2, '2.2', 1, '2019-04-25 17:40:00')"
+        );
     }
 }

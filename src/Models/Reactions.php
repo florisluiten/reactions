@@ -52,15 +52,16 @@ class Reactions
     /**
      * Return the query for getting the reactions
      *
-     * @param \PDO   $database The database handle
-     * @param string $ID       The article ID
+     * @param \PDO    $database The database handle
+     * @param string  $ID       The article ID
+     * @param integer $sort     Indicate the sorting, defaults to
+     *                          SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
-    public function queryByArticle(\PDO $database, string $articleID): ? \PDOStatement
+    public function queryByArticle(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
     {
-        $statement = $database->prepare(
-            'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
+        $query = 'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
             . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
             . ' FROM `reactionScores` '
             . ' WHERE reactions.reactionID = reactionScores.reactionID'
@@ -69,8 +70,16 @@ class Reactions
             . '`users`.`name` as username, `users`.`image` as userimage '
             . 'FROM `reactions` '
             . 'LEFT JOIN `users` ON `users`.`userID` = `reactions`.`userID` '
-            . 'WHERE articleID = :ID'
-        );
+            . 'WHERE articleID = :ID ORDER BY `publishDate` ';
+
+        if ($sort == \SORT_OLDEST_FIRST) {
+            $query .= 'ASC';
+        } else {
+            $query .= 'DESC';
+        }
+
+        $statement = $database->prepare($query);
+
         $statement->bindParam(':ID', $articleID);
 
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
@@ -81,16 +90,18 @@ class Reactions
     /**
      * Return the reactions in a tree layout
      *
-     * @param \PDO   $database The database handle
-     * @param string $ID       The article ID
+     * @param \PDO    $database The database handle
+     * @param string  $ID       The article ID
+     * @param integer $sort     Indicate the sorting, defaults to
+     *                          SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
-    public function getThread(\PDO $database, string $articleID): array
+    public function getThread(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): array
     {
         $reactions = array();
 
-        $statement = self::queryByArticle($database, $articleID);
+        $statement = self::queryByArticle($database, $articleID, $sort);
         $statement->execute();
 
         while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
