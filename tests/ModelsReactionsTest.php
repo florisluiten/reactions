@@ -50,6 +50,15 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
             . "FOREIGN KEY (`userID`) REFERENCES `users` (`userID`))"
         );
 
+        $this->database->query(
+            "CREATE TABLE `reactionScores` ( `reactionID` BIGINT UNSIGNED NOT NULL, "
+            . "`userID` BIGINT UNSIGNED NOT NULL, "
+            . "`score` TINYINT NOT NULL, "
+            . "PRIMARY KEY (`reactionID`, `userID`), "
+            . "FOREIGN KEY (`reactionID`) REFERENCES `reactions` (`reactionID`),"
+            . "FOREIGN KEY (`userID`) REFERENCES `users` (`userID`))"
+        );
+
         $this->database->query("PRAGMA foreign_keys = ON");
 
         $this->database->query(
@@ -238,5 +247,25 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
 
         $this->assertSame('Blaat', $answer[0]['content']);
         $this->assertSame('Oh, really?!', $answer[0]['children'][0]['content']);
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testScoreDefaultsToZero()
+    {
+        $reaction = new App\Models\Reactions();
+        $reaction->userID = '1';
+        $reaction->content = 'Rate me';
+        $reaction->articleID = '1';
+
+        App\Models\Reactions::add($this->database, $reaction);
+
+        $reactions = App\Models\Reactions::getThread($this->database, '1');
+        $reaction = $reactions[0];
+
+        $this->assertSame('0', $reaction['score']);
     }
 }
