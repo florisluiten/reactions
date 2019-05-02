@@ -42,7 +42,7 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
             . "`articleID` BIGINT UNSIGNED NOT NULL, "
             . "`score` INT NULL DEFAULT 0, "
             . "`userID` BIGINT UNSIGNED NOT NULL, "
-            . "`publishDate` VARCHAR(45) NULL, "
+            . "`publishDate` DATETIME NULL, "
             . "`content` TEXT NOT NULL, "
             . "UNIQUE (`reactionID`), "
             . "FOREIGN KEY (`parentID`) REFERENCES `reactions` (`reactionID`), "
@@ -250,53 +250,53 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     private function setupThread()
     {
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (1, 1, null, '1', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (1, 1, null, '1', 1, '2019-04-25 16:20:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (2, 1, null, '2', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (2, 1, null, '2', 1, '2019-04-25 16:24:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (3, 1, 2, '2.1', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (3, 1, 2, '2.1', 1, '2019-04-25 16:55:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (4, 1, 1, '1.1', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (4, 1, 1, '1.1', 1, '2019-04-25 17:34:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (5, 1, 1, '1.2', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (5, 1, 1, '1.2', 1, '2019-04-25 17:35:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (6, 1, 4, '1.1.1', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (6, 1, 4, '1.1.1', 1, '2019-04-25 17:36:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (7, 1, 4, '1.1.2', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (7, 1, 4, '1.1.2', 1, '2019-04-25 17:37:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (8, 1, 5, '1.2.1', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (8, 1, 5, '1.2.1', 1, '2019-04-25 17:38:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (9, 1, 4, '1.1.3', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (9, 1, 4, '1.1.3', 1, '2019-04-25 17:39:00')"
         );
 
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (10, 1, 2, '2.2', 1)"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`, `publishDate`) "
+            . "VALUES (10, 1, 2, '2.2', 1, '2019-04-25 17:40:00')"
         );
     }
 }
