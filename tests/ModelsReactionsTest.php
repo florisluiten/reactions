@@ -161,6 +161,46 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
      *
      * @return void
      */
+    public function testGetByArticleSorting()
+    {
+        $this->setupThread();
+
+        $resource = App\Models\Reactions::queryByArticle($this->database, '1');
+        $resource->execute();
+
+        $this->assertSame('1', ($resource->fetch())->content);
+        $this->assertSame('2', ($resource->fetch())->content);
+        $this->assertSame('2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1', ($resource->fetch())->content);
+        $this->assertSame('1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.2', ($resource->fetch())->content);
+        $this->assertSame('1.2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.3', ($resource->fetch())->content);
+        $this->assertSame('2.2', ($resource->fetch())->content);
+        $this->assertEmpty($resource->fetch());
+
+        $resource = App\Models\Reactions::queryByArticle($this->database, '1', \SORT_NEWEST_FIRST);
+        $resource->execute();
+
+        $this->assertSame('2.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.3', ($resource->fetch())->content);
+        $this->assertSame('1.2.1', ($resource->fetch())->content);
+        $this->assertSame('1.1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1.1', ($resource->fetch())->content);
+        $this->assertSame('1.2', ($resource->fetch())->content);
+        $this->assertSame('1.1', ($resource->fetch())->content);
+        $this->assertSame('2.1', ($resource->fetch())->content);
+        $this->assertSame('2', ($resource->fetch())->content);
+        $this->assertSame('1', ($resource->fetch())->content);
+        $this->assertEmpty($resource->fetch());
+    }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
     public function testCreate()
     {
         $reaction = new App\Models\Reactions();
