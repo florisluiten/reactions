@@ -84,7 +84,11 @@ class Http extends Base
             return $this->parseView('page-not-found');
         }
         
-        $reactions = App\Models\Reactions::getThread($this->database, $articleID);
+        $reactions = App\Models\Reactions::getThread(
+            $this->database,
+            $articleID,
+            isset($_GET['reverse']) ? \SORT_NEWEST_FIRST : \SORT_OLDEST_FIRST
+        );
 
         return $this->parseView('articles-index', array('article' => $article, 'reactions' => $reactions));
     }

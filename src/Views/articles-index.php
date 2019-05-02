@@ -97,6 +97,10 @@ function scoreToWord($score)
                 <?php echo $article->content; ?>
             </main>
             <section class="reactions">
+                <div class="sorting">
+                    <a href="?regular">Oudste bericht eerst</a>
+                    <a href="?reverse">Nieuwste bericht eerst</a>
+                <div>
                 <ol class="reactions">
 <?php renderReactions($reactions); ?>
                 </ol>
