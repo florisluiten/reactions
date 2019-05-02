@@ -23,11 +23,35 @@ class Http extends Base
      */
     public function handleRequest(\Fluiten\Reactions\Request\Http $request): string
     {
+        $path = $request->getPath();
+
+        if ($path == '' or $path == '/') {
+            header('HTTP/1.1 302 Found');
+            header('Location: /news/152056');
+            return 'Please be redirected';
+        } elseif (substr($path, 0, 6) == '/news/') {
+            list($slash, $news, $articleID) = explode('/', $path, 3);
+
+            return $this->displayArticle($articleID);
+        }
+
+        return 'Page not found';
+    }
+
+    /**
+     * Display the specified article
+     *
+     * @param string $articleID The articleID
+     *
+     * @return boolean True on success, false otherwise
+     */
+    private function displayArticle($articleID)
+    {
         if (isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->insertReaction($_POST['reaction'], $_POST['replyto'] ?? null);
         }
 
-        $resource = App\Models\Articles::queryById($this->database, '152056');
+        $resource = App\Models\Articles::queryById($this->database, $articleID);
         $resource->execute();
 
         $article = $resource->fetch();
@@ -36,7 +60,7 @@ class Http extends Base
             return $this->parseView('page-not-found');
         }
         
-        $reactions = App\Models\Reactions::getThread($this->database, '152056');
+        $reactions = App\Models\Reactions::getThread($this->database, $articleID);
 
         return $this->parseView('articles-index', array('article' => $article, 'reactions' => $reactions));
     }
