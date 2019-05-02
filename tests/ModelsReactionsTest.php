@@ -125,73 +125,13 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test retreiving reactions as thread. Should represent the following
-     * structure:
-     *
-     *  1             reactionID:  1, parentID: null
-     *   ├─1.1        reactionID:  4, parentID: 1
-     *   │  ├ 1.1.1   reactionID:  6, parentID: 4
-     *   │  ├ 1.1.2   reactionID:  7, parentID: 4
-     *   │  └ 1.1.3   reactionID:  9, parentID: 4
-     *   └─1.2        reactionID:  5, parentID: 1
-     *      └ 1.2.1   reactionID:  8, parentID: 5
-     *  2             reactionID:  2, parentID: null
-     *   ├─2.1        reactionID:  3, parentID: 2
-     *   └─2.2        reactionID: 10, parentID: 2
+     * Test
      *
      * @return void
      */
     public function testGetThread()
     {
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (1, 1, null, '1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (2, 1, null, '2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (3, 1, 2, '2.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (4, 1, 1, '1.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (5, 1, 1, '1.2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (6, 1, 4, '1.1.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (7, 1, 4, '1.1.2', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (8, 1, 5, '1.2.1', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (9, 1, 4, '1.1.3', 1)"
-        );
-
-        $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
-            . "VALUES (10, 1, 2, '2.2', 1)"
-        );
+        $this->setupThread();
 
         $answer = App\Models\Reactions::getThread($this->database, '1');
 
@@ -290,5 +230,73 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('Some content', $answer->content);
 
         $this->assertEmpty(App\Models\Reactions::getById($this->database, '42'));
+    }
+
+    /**
+     *
+     * Setup database for a thread like this:
+     *
+     *  1             reactionID:  1, parentID: null
+     *   ├─1.1        reactionID:  4, parentID: 1
+     *   │  ├ 1.1.1   reactionID:  6, parentID: 4
+     *   │  ├ 1.1.2   reactionID:  7, parentID: 4
+     *   │  └ 1.1.3   reactionID:  9, parentID: 4
+     *   └─1.2        reactionID:  5, parentID: 1
+     *      └ 1.2.1   reactionID:  8, parentID: 5
+     *  2             reactionID:  2, parentID: null
+     *   ├─2.1        reactionID:  3, parentID: 2
+     *   └─2.2        reactionID: 10, parentID: 2
+     */
+    private function setupThread()
+    {
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (1, 1, null, '1', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (2, 1, null, '2', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (3, 1, 2, '2.1', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (4, 1, 1, '1.1', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (5, 1, 1, '1.2', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (6, 1, 4, '1.1.1', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (7, 1, 4, '1.1.2', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (8, 1, 5, '1.2.1', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (9, 1, 4, '1.1.3', 1)"
+        );
+
+        $this->database->query(
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `parentID`, `content`, `userID`) "
+            . "VALUES (10, 1, 2, '2.2', 1)"
+        );
     }
 }
