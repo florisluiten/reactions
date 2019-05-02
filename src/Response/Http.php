@@ -42,15 +42,19 @@ class Http extends Base
         ) {
             list($slash, $news, $reactionID) = explode('/', $path, 4);
 
-            $newReaction = new App\Models\Scores();
-            $newReaction->reactionID = $reactionID;
-            $newReaction->userID = $this->user->userID;
-            $newReaction->score = $_POST['score'];
+            $reaction = App\Models\Reactions::getById($this->database, $reactionID);
 
-            if (App\Models\Scores::add($this->database, $newReaction)) {
-                header('HTTP/1.1 302 Found');
-                header('Location: /news/152056');
-                return 'Please be redirected';
+            if ($reaction->userID != $this->user->userID) {
+                $newReaction = new App\Models\Scores();
+                $newReaction->reactionID = $reactionID;
+                $newReaction->userID = $this->user->userID;
+                $newReaction->score = $_POST['score'];
+
+                if (App\Models\Scores::add($this->database, $newReaction)) {
+                    header('HTTP/1.1 302 Found');
+                    header('Location: /news/152056');
+                    return 'Please be redirected';
+                }
             }
         }
 
