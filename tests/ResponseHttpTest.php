@@ -54,6 +54,6 @@ class ResponseHttpTest extends \PHPUnit\Framework\TestCase
     {
         $response = new App\Response\Http($this->database);
 
-        $this->assertNotNull($response->handleRequest(new App\Request\Http()));
+        $this->assertNotNull($response->handleRequest(new App\Request\Http(array('REQUEST_URI' => '/news/1234'))));
     }
 }
