@@ -144,4 +144,38 @@ class ModelsScoresTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals(2, $reaction['score']);
     }
+
+    /**
+     * Test
+     *
+     * @return void
+     */
+    public function testScoreOnePerUser()
+    {
+        $reaction = new App\Models\Reactions();
+        $reaction->userID = 1;
+        $reaction->content = 'Rate me';
+        $reaction->articleID = '1';
+
+        App\Models\Reactions::add($this->database, $reaction);
+
+        $score = new App\Models\Scores();
+        $score->reactionID = 1;
+        $score->userID = 2;
+        $score->score = 3;
+
+        App\Models\Scores::add($this->database, $score);
+
+        $score = new App\Models\Scores();
+        $score->reactionID = 1;
+        $score->userID = 2;
+        $score->score = 1;
+
+        App\Models\Scores::add($this->database, $score);
+
+        $reactions = App\Models\Reactions::getThread($this->database, '1');
+        $reaction = $reactions[0];
+
+        $this->assertEquals(1, $reaction['score']);
+    }
 }
