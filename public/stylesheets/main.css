@@ -80,8 +80,14 @@ ol.reactions li h2 {
 ol.reactions li .usercontent {
 	padding-top: 10px;
 	padding-bottom: 10px;
-	margin-bottom: 10px;
 }
 .reactions {
 	margin-bottom: 50px;
+}
+details {
+	margin-bottom: 10px;
+}
+summary {
+	display: list-item;
+	margin-bottom: 10px;
 }

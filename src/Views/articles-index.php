@@ -37,12 +37,15 @@ function renderReactions(array $reactions, stdClass $user)
         . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
 		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
-		<form method="POST" action="?">
-			<label for="reaction">Reageer:</label>
-			<textarea name="reaction" class="form-control"></textarea>
-			<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
-			<input type="submit" value="Plaats reactie" class="btn btn-primary">
-		</form>
+		<details>
+			<summary>Reageer</summary>
+			<form method="POST" action="?">
+				<label for="reaction">Reageer:</label>
+				<textarea name="reaction" class="form-control"></textarea>
+				<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
+				<input type="submit" value="Plaats reactie" class="btn btn-primary">
+			</form>
+		</details>
 		</div>
 		<ol>';
         renderReactions($reaction['children'], $user);
