@@ -15,12 +15,12 @@ use \Fluiten\Reactions as App;
 class Articles
 {
     /**
-     * @param string The title of the article
+     * @var string The title of the article
      */
     public $title;
 
     /**
-     * @param string The content of the article
+     * @var string The content of the article
      */
     public $content;
 

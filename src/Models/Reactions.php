@@ -15,37 +15,37 @@ use \Fluiten\Reactions as App;
 class Reactions
 {
     /**
-     * @param string The reactionID
+     * @var string The reactionID
      */
     public $reactionID;
 
     /**
-     * @param string The parentID
+     * @var string The parentID
      */
     public $parentID;
 
     /**
-     * @param string The articleID
+     * @var string The articleID
      */
     public $articleID;
 
     /**
-     * @param string The score
+     * @var string The score
      */
     public $score;
 
     /**
-     * @param string The userID
+     * @var string The userID
      */
     public $userID;
 
     /**
-     * @param string The publish date
+     * @var string The publish date
      */
     public $publishDate;
 
     /**
-     * @param string The content
+     * @var string The content
      */
     public $content;
 
