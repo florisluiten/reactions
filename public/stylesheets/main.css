@@ -7,10 +7,12 @@ ol.reactions, ol.reactions li {
 	padding:0;
 }
 ol.reactions li {
+	position: relative;
+}
+ol.reactions li > div {
+	margin-bottom: 10px;
 	border: 1px solid #ccc;
 	padding: 5px 20px;
-	margin-bottom: 10px;
-	position: relative;
 }
 ol.reactions li .currentscore {
 	position: absolute;
