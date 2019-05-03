@@ -312,6 +312,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
      *  2             reactionID:  2, parentID: null
      *   ├─2.1        reactionID:  3, parentID: 2
      *   └─2.2        reactionID: 10, parentID: 2
+     *
+     * @return void
      */
     private function setupThread()
     {
