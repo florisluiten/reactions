@@ -96,9 +96,10 @@ class Http extends Base
     /**
      * Handle inserting new reaction
      *
-     * @param string $reaction The reaction
-     * @param string $replyTo  The reactionID in case of a reply, defaults
-     *                         to NULL
+     * @param string $articleID The articleID
+     * @param string $reaction  The reaction
+     * @param string $replyTo   The reactionID in case of a reply, defaults
+     *                          to NULL
      *
      * @return string
      */

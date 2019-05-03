@@ -52,10 +52,10 @@ class Reactions
     /**
      * Return the query for getting the reactions
      *
-     * @param \PDO    $database The database handle
-     * @param string  $ID       The article ID
-     * @param integer $sort     Indicate the sorting, defaults to
-     *                          SORT_OLDEST_FIRST
+     * @param \PDO    $database  The database handle
+     * @param string  $articleID The article ID
+     * @param integer $sort      Indicate the sorting, defaults to
+     *                           SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
@@ -90,10 +90,10 @@ class Reactions
     /**
      * Return the reactions in a tree layout
      *
-     * @param \PDO    $database The database handle
-     * @param string  $ID       The article ID
-     * @param integer $sort     Indicate the sorting, defaults to
-     *                          SORT_OLDEST_FIRST
+     * @param \PDO    $database  The database handle
+     * @param string  $articleID The article ID
+     * @param integer $sort      Indicate the sorting, defaults to
+     *                           SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
