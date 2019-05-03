@@ -79,7 +79,15 @@
 		 * @return {void}
 		 */
 		applyScoreFilter: function (container, score) {
-			return;
+			Array.from(container.querySelectorAll('.wrapper[data-score]')).forEach(function (element) {
+				var thisScore = element.getAttribute('data-score') * 1;
+
+				if (thisScore < score) {
+					element.classList.add('hidden');
+				} else {
+					element.classList.remove('hidden');
+				}
+			});
 		}
 	};
 

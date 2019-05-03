@@ -17,7 +17,7 @@
 function renderReactions(array $reactions, stdClass $user)
 {
     foreach ($reactions as $i => $reaction) {
-        echo '<li class="reaction">
+        echo '<li class="reaction"><div class="wrapper" data-score="' . $reaction['score'] . '">
 		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>';
 
         if ($reaction['userID'] != $user->userID) {
@@ -44,6 +44,7 @@ function renderReactions(array $reactions, stdClass $user)
 			<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
 			<input type="submit" value="send">
 		</form>
+		</div>
 		<ol>';
         renderReactions($reaction['children'], $user);
         echo ' </ol> </li>';
