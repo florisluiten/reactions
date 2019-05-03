@@ -10,6 +10,16 @@
 
 	var self = {
 		/**
+		 * @var The minimum threshold for scores
+		 */
+		scoreMinThreshold: -1,
+
+		/**
+		 * @var The maximum threshold for scores
+		 */
+		scoreMaxThreshold: 3,
+
+		/**
 		 * Setup filtering reactions based on the score
 		 *
 		 * @param {DOM} displaySettingBox The displaySettingBox element
@@ -30,11 +40,15 @@
 		buildScoreForm: function () {
 			var form = document.createElement('form'),
 				select = document.createElement('select'),
-				option = document.createElement('option');
+				el = null;
 
-			option.setAttribute('value', '-1');
-			option.text = '-1';
-			select.appendChild(option);
+			for (var i = self.scoreMinThreshold; i <= self.scoreMaxThreshold; i++) {
+				el = document.createElement('option');
+				el.setAttribute('value', i);
+				el.text = i;
+
+				select.appendChild(el);
+			}
 
 			form.appendChild(select);
 
