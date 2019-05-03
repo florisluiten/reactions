@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true
+
+TEMPFILE=$(mktemp)
+
+echo "tzdata tzdata/Arease select Europe" > $TEMPFILE
+echo "tzdata tzdata/Zones/Europe select Amsterdam" >> $TEMPFILE
+debconf-set-selections $TEMPFILE
+
+apt-get update
+apt-get install tzdata

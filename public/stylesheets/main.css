@@ -1,0 +1,112 @@
+body {
+	padding-top: 20px;
+}
+label, input, textarea, select {
+	margin-bottom: 10px;
+}
+select.form-control {
+	width: 60px;
+	display: inline-block;
+	margin-right: 7px;
+}
+form.score-reaction {
+	margin: 5px 0;
+}
+textarea.form-control {
+	width: 400px;
+	height: 170px;
+}
+ol.reactions, ol.reactions li {
+	list-style: none;
+	margin: 0;
+	padding:0;
+}
+ol.reactions li {
+	position: relative;
+}
+ol.reactions li > div {
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	padding: 5px 20px;
+}
+ol.reactions li .currentscore {
+	position: absolute;
+	top: 15px;
+	right: 20px;
+	font-weight: bold;
+	font-size: 2em;
+	color: #fff;
+	background-color: #ccc;
+	border: 1px solid #bfbfbf;
+	padding: 7px 10px;
+	width: 50px;
+	height: 50px;
+	line-height: 35px;
+	text-align: center;
+	border-radius: 3px;
+}
+ol.reactions li .currentscore.low {
+	background-color: #f64;
+	border-color: #ff3103;
+}
+ol.reactions li .currentscore.good {
+	background-color: #ee7;
+	border-color: #e6e637;
+}
+ol.reactions li .currentscore.high {
+	background-color: #dd0;
+	border-color: #c8c800;
+}
+ol.reactions li .currentscore.veryhigh {
+	background-color: #6f4;
+	border-color: #2efb00;
+}
+ol.reactions li time {
+	font-size: .9em;
+	color: #888;
+}
+ol.reactions li h2 > img {
+	margin-right: 10px;
+	border-radius: 50%;
+}
+ol.reactions li h2 > a:hover,
+ol.reactions li h2 > a {
+	text-decoration: none;
+	color: #337ab7;
+}
+ol.reactions li h2 {
+	margin-bottom: 3px;
+}
+ol.reactions li .usercontent {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.reactions {
+	margin-bottom: 50px;
+}
+details {
+	margin-bottom: 10px;
+}
+summary {
+	display: list-item;
+	margin-bottom: 10px;
+}
+.sorting, .sorting li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sorting li a {
+	color: #555;
+}
+.sorting li.active a {
+	color: #337ab7;
+}
+.displaySettingBox {
+	margin: 20px 0 10px 0;
+}
+.displaySettingBox .col-md-2:last-child {
+	padding: 0;
+	text-align: right;
+}
+
