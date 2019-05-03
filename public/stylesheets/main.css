@@ -91,6 +91,17 @@ summary {
 	display: list-item;
 	margin-bottom: 10px;
 }
+.sorting, .sorting li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.sorting li a {
+	color: #555;
+}
+.sorting li.active a {
+	color: #337ab7;
+}
 .displaySettingBox {
 	margin: 20px 0 10px 0;
 }

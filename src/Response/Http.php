@@ -93,6 +93,8 @@ class Http extends Base
             isset($_GET['reverse']) ? \SORT_NEWEST_FIRST : \SORT_OLDEST_FIRST
         );
 
+        $this->defaultViewData['sortOrder'] = (isset($_GET['reverse'])) ? 'reverse' : 'regular';
+
         return $this->parseView('articles-index', array('article' => $article, 'reactions' => $reactions));
     }
 

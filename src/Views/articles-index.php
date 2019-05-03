@@ -123,8 +123,8 @@ function scoreToWord(string $score)
                     <div class="col-md-8"></div>
                     <div class="col-md-2">
                         <ul class="sorting">
-                            <li><a href="?regular">Oudste bericht eerst</a></li>
-                            <li><a href="?reverse">Nieuwste bericht eerst</a></li>
+                            <li<?php if ($sortOrder == 'regular') {?> class="active"<?php } ?>><a href="?regular">Oudste bericht eerst</a></li>
+                            <li<?php if ($sortOrder == 'reverse') {?> class="active"<?php } ?>><a href="?reverse">Nieuwste bericht eerst</a></li>
                         </ul>
                     </div>
                 </div>
