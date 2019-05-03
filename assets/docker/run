@@ -13,6 +13,8 @@ echo "error_reporting = $PHP_ERROR_REPORTING" >> /etc/php/7.2/cli/php.ini
 sleep 15
 
 rm -f /var/run/apache2/apache2.pid
+
+echo "<?php return array('PDO' => array('DSN' => 'mysql:host=database;dbname=reactions', 'username' => 'reactionsweb', 'password' => 'mysecret123'));" > /var/www/env.php
 php /var/www/setup.php
 
 source /etc/apache2/envvars && exec /usr/sbin/apache2 -DFOREGROUND
