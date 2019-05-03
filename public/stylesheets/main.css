@@ -1,6 +1,20 @@
 body {
 	padding-top: 20px;
 }
+label, input, textarea, select {
+	margin-bottom: 10px;
+}
+select.form-control {
+	width: 60px;
+	display: inline-block;
+}
+form.score-reaction {
+	margin: 5px 0;
+}
+textarea.form-control {
+	width: 400px;
+	height: 170px;
+}
 ol.reactions, ol.reactions li {
 	list-style: none;
 	margin: 0;
