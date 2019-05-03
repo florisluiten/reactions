@@ -10,3 +10,8 @@ Docs too. Follow the PEAR Commenting code style for this.
 For linting your files, you can use
 [PHP_CodeSniffer](https://pear.php.net/package/PHP_CodeSniffer). Then use
 the `ruleset.xml` file in this directory.
+
+## JavaScript
+
+For the JavaScript code style, please use [ESLint](https://eslint.org) with
+the supplied `.eslintrc.js` configuration.
