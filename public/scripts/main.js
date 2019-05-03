@@ -27,7 +27,8 @@
 		 * @return {void}
 		 */
 		setupFilter: function (displaySettingBox) {
-			var scoreForm = self.buildScoreForm();
+			var scoreForm = self.buildScoreForm(),
+				container = document.createElement('div');
 
 			scoreForm.onsubmit = function () {
 				var select = this.querySelector('select');
@@ -37,7 +38,10 @@
 				return false;
 			};
 
-			displaySettingBox.appendChild(scoreForm);
+			container.classList.add('col-md-2');
+			container.appendChild(scoreForm);
+
+			displaySettingBox.appendChild(container);
 		},
 
 		/**
