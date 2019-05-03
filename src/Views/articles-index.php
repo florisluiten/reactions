@@ -1,12 +1,19 @@
 <?php
 /**
+ * Article index
+ *
+ * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
+ */
+
+/**
  * Macro for rendering a reaction
  *
  * @param App\Reaction[] $reactions The reactions
  *
  * @return void
  */
-function renderReactions($reactions)
+function renderReactions(array $reactions)
 {
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
@@ -45,7 +52,7 @@ function renderReactions($reactions)
  *
  * @return string
  */
-function scoreToWord($score)
+function scoreToWord(string $score)
 {
     switch ($score) {
         case '-1':

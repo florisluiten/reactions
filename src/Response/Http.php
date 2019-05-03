@@ -2,8 +2,8 @@
 /**
  * HTTP response
  *
- * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);
@@ -69,7 +69,7 @@ class Http extends Base
      *
      * @return boolean True on success, false otherwise
      */
-    private function displayArticle($articleID)
+    private function displayArticle(string $articleID)
     {
         if (isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->insertReaction($articleID, $_POST['reaction'], $_POST['replyto'] ?? null);
@@ -96,9 +96,10 @@ class Http extends Base
     /**
      * Handle inserting new reaction
      *
-     * @param string $reaction The reaction
-     * @param string $replyTo  The reactionID in case of a reply, defaults
-     *                         to NULL
+     * @param string $articleID The articleID
+     * @param string $reaction  The reaction
+     * @param string $replyTo   The reactionID in case of a reply, defaults
+     *                          to NULL
      *
      * @return string
      */

@@ -2,8 +2,8 @@
 /**
  * Articles model
  *
- * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);
@@ -15,12 +15,12 @@ use \Fluiten\Reactions as App;
 class Articles
 {
     /**
-     * @param string The title of the article
+     * @var string The title of the article
      */
     public $title;
 
     /**
-     * @param string The content of the article
+     * @var string The content of the article
      */
     public $content;
 
@@ -34,7 +34,9 @@ class Articles
      */
     public function queryById(\PDO $database, string $ID): ? \PDOStatement
     {
-        $statement = $database->prepare('SELECT `articleID`, `content`, `title` FROM `articles` WHERE `articleID` = :ID');
+        $statement = $database->prepare(
+            'SELECT `articleID`, `content`, `title` FROM `articles` WHERE `articleID` = :ID'
+        );
         $statement->bindParam(':ID', $ID);
 
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);

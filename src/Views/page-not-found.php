@@ -2,7 +2,10 @@
 /**
  * Page not found
  *
+ * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
+
 ?><!DOCTYPE html>
 <html>
     <head>

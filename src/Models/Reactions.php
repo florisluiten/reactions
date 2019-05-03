@@ -2,8 +2,8 @@
 /**
  * Reactions model
  *
- * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);
@@ -15,51 +15,51 @@ use \Fluiten\Reactions as App;
 class Reactions
 {
     /**
-     * @param string The reactionID
+     * @var string The reactionID
      */
     public $reactionID;
 
     /**
-     * @param string The parentID
+     * @var string The parentID
      */
     public $parentID;
 
     /**
-     * @param string The articleID
+     * @var string The articleID
      */
     public $articleID;
 
     /**
-     * @param string The score
+     * @var string The score
      */
     public $score;
 
     /**
-     * @param string The userID
+     * @var string The userID
      */
     public $userID;
 
     /**
-     * @param string The publish date
+     * @var string The publish date
      */
     public $publishDate;
 
     /**
-     * @param string The content
+     * @var string The content
      */
     public $content;
 
     /**
      * Return the query for getting the reactions
      *
-     * @param \PDO    $database The database handle
-     * @param string  $ID       The article ID
-     * @param integer $sort     Indicate the sorting, defaults to
-     *                          SORT_OLDEST_FIRST
+     * @param \PDO    $database  The database handle
+     * @param string  $articleID The article ID
+     * @param integer $sort      Indicate the sorting, defaults to
+     *                           SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
-    public function queryByArticle(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
+    public function queryByArticle(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
     {
         $query = 'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
             . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
@@ -90,14 +90,14 @@ class Reactions
     /**
      * Return the reactions in a tree layout
      *
-     * @param \PDO    $database The database handle
-     * @param string  $ID       The article ID
-     * @param integer $sort     Indicate the sorting, defaults to
-     *                          SORT_OLDEST_FIRST
+     * @param \PDO    $database  The database handle
+     * @param string  $articleID The article ID
+     * @param integer $sort      Indicate the sorting, defaults to
+     *                           SORT_OLDEST_FIRST
      *
      * @return \PDOStatement
      */
-    public function getThread(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): array
+    public function getThread(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): array
     {
         $reactions = array();
 
@@ -119,8 +119,8 @@ class Reactions
     /**
      * Add a new comment
      *
-     * @param \PDO $database The database connection
-     * @param App\Models\Reaction $reaction The reaction
+     * @param \PDO                 $database The database connection
+     * @param App\Models\Reactions $reaction The reaction
      *
      * @return boolean True on success, false otherwise
      */

@@ -2,9 +2,8 @@
 /**
  * Test for Models\Reactions
  *
- * @author     Floris Luiten <floris@florisluiten.nl>
  * @package    Reactions
- * @subpackage Tests
+ * @author     Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);
@@ -313,6 +312,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
      *  2             reactionID:  2, parentID: null
      *   ├─2.1        reactionID:  3, parentID: 2
      *   └─2.2        reactionID: 10, parentID: 2
+     *
+     * @return void
      */
     private function setupThread()
     {

@@ -2,8 +2,8 @@
 /**
  * Scores model
  *
- * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);
@@ -15,17 +15,17 @@ use \Fluiten\Reactions as App;
 class Scores
 {
     /**
-     * @param string The reactionID
+     * @var string The reactionID
      */
     public $reactionID;
 
     /**
-     * @param string The score, rounded
+     * @var string The score, rounded
      */
     public $score;
 
     /**
-     * @param string The userID
+     * @var string The userID
      */
     public $userID;
 
