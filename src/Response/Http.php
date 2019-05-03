@@ -44,7 +44,7 @@ class Http extends Base
 
             $reaction = App\Models\Reactions::getById($this->database, $reactionID);
 
-            if ($reaction->userID != $this->user->userID) {
+            if (!is_null($reaction) and $reaction->userID != $this->user->userID) {
                 $newReaction = new App\Models\Scores();
                 $newReaction->reactionID = $reactionID;
                 $newReaction->userID = $this->user->userID;
