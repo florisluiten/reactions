@@ -116,10 +116,12 @@ function scoreToWord(string $score)
                 <?php echo $article->content; ?>
             </main>
             <section class="reactions">
-                <div class="sorting">
-                    <a href="?regular">Oudste bericht eerst</a>
-                    <a href="?reverse">Nieuwste bericht eerst</a>
-                <div>
+                <div class="displaySettingBox">
+                    <ul class="sorting">
+                        <li><a href="?regular">Oudste bericht eerst</a></li>
+                        <li><a href="?reverse">Nieuwste bericht eerst</a></li>
+                    </ul>
+                </div>
                 <ol class="reactions">
 <?php renderReactions($reactions, $user); ?>
                 </ol>
