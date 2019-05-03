@@ -26,6 +26,9 @@ class Http extends Base
         // User has logged in via Telepathy™
         $this->user = new \StdClass();
         $this->user->userID = '1';
+        $this->user->username = 'tincidunt91';
+
+        $this->defaultViewData['user'] = $this->user;
 
         $path = $request->getPath();
 

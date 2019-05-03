@@ -81,7 +81,7 @@ function scoreToWord(string $score)
     </head>
     <body>
         <div class="container">
-            <nav class="navbar navbar-default">
+            <nav class="navbar navbar-default" style="padding-right: 15px">
                 <div class="navbar-header">
                     <a href="#" class="navbar-brand">Reactions</a>
                 </div>
@@ -94,6 +94,13 @@ function scoreToWord(string $score)
                     </li>
                     <li>
                         <a href="#">Meer</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            Ingelogd als: <strong><?php echo $user->username; ?></strong>
+                        </a>
                     </li>
                 </ul>
             </nav>
