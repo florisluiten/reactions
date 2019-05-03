@@ -132,5 +132,6 @@ function scoreToWord(string $score)
                 </form>
             </section>
         </div>
+        <script src="/scripts/main.js"></script>
     </body>
 </html>
