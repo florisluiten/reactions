@@ -29,6 +29,14 @@
 		setupFilter: function (displaySettingBox) {
 			var scoreForm = self.buildScoreForm();
 
+			scoreForm.onsubmit = function () {
+				var select = this.querySelector('select');
+
+				self.applyScoreFilter(this.closest('section'), select.options[select.selectedIndex].value * 1);
+
+				return false;
+			};
+
 			displaySettingBox.appendChild(scoreForm);
 		},
 
@@ -52,7 +60,26 @@
 
 			form.appendChild(select);
 
+			el = document.createElement('input');
+			el.setAttribute('type', 'submit');
+			el.setAttribute('value', 'Pas filter toe');
+
+			form.appendChild(el);
+
 			return form;
+		},
+
+		/**
+		 * For the container check each .wrapper and apply a filter to it
+		 * when it is lower than the provided score
+		 *
+		 * @param {DOM}     container The container to look for .wrapper
+		 * @param {integer} score     The score treshold
+		 *
+		 * @return {void}
+		 */
+		applyScoreFilter: function (container, score) {
+			return;
 		}
 	};
 
