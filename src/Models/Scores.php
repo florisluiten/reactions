@@ -37,7 +37,7 @@ class Scores
      *
      * @return boolean True on success, false otherwise
      */
-    public function add(\PDO $database, App\Models\Scores $score)
+    public static function add(\PDO $database, App\Models\Scores $score)
     {
         $statement = $database->prepare(
             "REPLACE INTO `reactionScores` (`reactionID`, `userID`, `score`) VALUES(:REACTIONID, :USERID, :SCORE)"

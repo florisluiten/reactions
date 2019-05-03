@@ -59,7 +59,7 @@ class Reactions
      *
      * @return \PDOStatement
      */
-    public function queryByArticle(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
+    public static function queryByArticle(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
     {
         $query = 'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
             . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
@@ -97,7 +97,7 @@ class Reactions
      *
      * @return \PDOStatement
      */
-    public function getThread(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): array
+    public static function getThread(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): array
     {
         $reactions = array();
 
@@ -124,7 +124,7 @@ class Reactions
      *
      * @return boolean True on success, false otherwise
      */
-    public function add(\PDO $database, App\Models\Reactions $reaction)
+    public static function add(\PDO $database, App\Models\Reactions $reaction)
     {
         $now = (new \Datetime())->format('Y-m-d H:i:s');
 
@@ -150,7 +150,7 @@ class Reactions
      *
      * @return App\Models\Reaction The reaction, or null
      */
-    public function getById(\PDO $database, string $reactionID): ? App\Models\Reactions
+    public static function getById(\PDO $database, string $reactionID): ? App\Models\Reactions
     {
         $statement = $database->prepare(
             'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '

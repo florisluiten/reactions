@@ -32,7 +32,7 @@ class Articles
      *
      * @return \PDOStatement
      */
-    public function queryById(\PDO $database, string $ID): ? \PDOStatement
+    public static function queryById(\PDO $database, string $ID): ? \PDOStatement
     {
         $statement = $database->prepare(
             'SELECT `articleID`, `content`, `title` FROM `articles` WHERE `articleID` = :ID'
