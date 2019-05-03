@@ -23,14 +23,13 @@ function renderReactions(array $reactions, stdClass $user)
         if ($reaction['userID'] != $user->userID) {
             echo '<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
 			<label for="score-1">Score</label>
-			<select name="score" id="score-1">
+			<select name="score" id="score-1" class="form-control">
 				<option value="-1">-1</option>
 				<option value="0">0</option>
 				<option value="1">+1</option>
 				<option value="2">+2</option>
 				<option value="3">+3</option>
-			</select>
-			<input type="submit" value="Geef deze score">
+			</select><input type="submit" value="Geef deze score" class="btn btn-default">
 		</form>';
         }
 
@@ -38,12 +37,15 @@ function renderReactions(array $reactions, stdClass $user)
         . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
 		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
-		<form method="POST" action="?">
-			<label for="reaction">Reageer:</label>
-			<textarea name="reaction"></textarea>
-			<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
-			<input type="submit" value="send">
-		</form>
+		<details>
+			<summary>Reageer</summary>
+			<form method="POST" action="?">
+				<label for="reaction">Reageer:</label>
+				<textarea name="reaction" class="form-control"></textarea>
+				<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
+				<input type="submit" value="Plaats reactie" class="btn btn-primary">
+			</form>
+		</details>
 		</div>
 		<ol>';
         renderReactions($reaction['children'], $user);
@@ -117,19 +119,22 @@ function scoreToWord(string $score)
                 <?php echo $article->content; ?>
             </main>
             <section class="reactions">
-                <div class="displaySettingBox">
-                    <ul class="sorting">
-                        <li><a href="?regular">Oudste bericht eerst</a></li>
-                        <li><a href="?reverse">Nieuwste bericht eerst</a></li>
-                    </ul>
+                <div class="displaySettingBox row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <ul class="sorting">
+                            <li<?php if ($sortOrder == 'regular') {?> class="active"<?php } ?>><a href="?regular">Oudste bericht eerst</a></li>
+                            <li<?php if ($sortOrder == 'reverse') {?> class="active"<?php } ?>><a href="?reverse">Nieuwste bericht eerst</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <ol class="reactions">
 <?php renderReactions($reactions, $user); ?>
                 </ol>
                 <form method="POST" action="?">
                     <label for="reaction">Reageer:</label>
-                    <textarea name="reaction"></textarea>
-                    <input type="submit" value="send">
+                    <textarea name="reaction" class="form-control"></textarea>
+                    <input type="submit" value="Plaats reactie" class="btn btn-primary">
                 </form>
             </section>
         </div>

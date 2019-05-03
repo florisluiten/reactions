@@ -27,7 +27,8 @@
 		 * @return {void}
 		 */
 		setupFilter: function (displaySettingBox) {
-			var scoreForm = self.buildScoreForm();
+			var scoreForm = self.buildScoreForm(),
+				container = document.createElement('div');
 
 			scoreForm.onsubmit = function () {
 				var select = this.querySelector('select');
@@ -37,7 +38,10 @@
 				return false;
 			};
 
-			displaySettingBox.appendChild(scoreForm);
+			container.classList.add('col-md-2');
+			container.appendChild(scoreForm);
+
+			displaySettingBox.appendChild(container);
 		},
 
 		/**
@@ -49,6 +53,8 @@
 			var form = document.createElement('form'),
 				select = document.createElement('select'),
 				el = null;
+
+			select.classList.add('form-control');
 
 			for (var i = self.scoreMinThreshold; i <= self.scoreMaxThreshold; i++) {
 				el = document.createElement('option');
@@ -63,6 +69,7 @@
 			el = document.createElement('input');
 			el.setAttribute('type', 'submit');
 			el.setAttribute('value', 'Pas filter toe');
+			el.classList.add('btn', 'btn-default');
 
 			form.appendChild(el);
 
