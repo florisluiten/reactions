@@ -23,6 +23,10 @@ ol.reactions li .currentscore {
 	color: #fff;
 	background-color: #ccc;
 	padding: 7px 10px;
+	width: 50px;
+	height: 50px;
+	line-height: 35px;
+	text-align: center;
 }
 ol.reactions li .currentscore.low {
 	background-color: #f64;
