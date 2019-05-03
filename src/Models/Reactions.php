@@ -59,7 +59,7 @@ class Reactions
      *
      * @return \PDOStatement
      */
-    public function queryByArticle(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
+    public function queryByArticle(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): ? \PDOStatement
     {
         $query = 'SELECT `reactions`.`reactionID`, `reactions`.`parentID`, `reactions`.`articleID`, '
             . '(SELECT IFNULL(ROUND(AVG(`score`), 0), 0) '
@@ -97,7 +97,7 @@ class Reactions
      *
      * @return \PDOStatement
      */
-    public function getThread(\PDO $database, string $articleID, $sort = \SORT_OLDEST_FIRST): array
+    public function getThread(\PDO $database, string $articleID, int $sort = \SORT_OLDEST_FIRST): array
     {
         $reactions = array();
 

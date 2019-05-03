@@ -69,7 +69,7 @@ class Http extends Base
      *
      * @return boolean True on success, false otherwise
      */
-    private function displayArticle($articleID)
+    private function displayArticle(string $articleID)
     {
         if (isset($_SERVER['REQUEST_METHOD']) and $_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->insertReaction($articleID, $_POST['reaction'], $_POST['replyto'] ?? null);
