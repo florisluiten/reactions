@@ -39,7 +39,6 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
             "CREATE TABLE `reactions` ( `reactionID` INTEGER PRIMARY KEY AUTOINCREMENT, "
             . "`parentID` BIGINT UNSIGNED NULL DEFAULT NULL, "
             . "`articleID` BIGINT UNSIGNED NOT NULL, "
-            . "`score` INT NULL DEFAULT 0, "
             . "`userID` BIGINT UNSIGNED NOT NULL, "
             . "`publishDate` DATETIME NULL, "
             . "`content` TEXT NOT NULL, "
@@ -90,8 +89,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     public function testGetOtherArticle()
     {
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `score`, `userID`, `publishDate`, `content`) "
-            . "VALUES (1, 1, 0, 1, '2018-01-01 12:12:12', 'Some content')"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `userID`, `publishDate`, `content`) "
+            . "VALUES (1, 1, 1, '2018-01-01 12:12:12', 'Some content')"
         );
 
         $resource = App\Models\Reactions::queryByArticle($this->database, '2');
@@ -108,8 +107,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     public function testGetCorrectArticle()
     {
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `score`, `userID`, `publishDate`, `content`) "
-            . "VALUES (1, 1, 0, 1, '2018-01-01 12:12:12', 'Some content')"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `userID`, `publishDate`, `content`) "
+            . "VALUES (1, 1, 1, '2018-01-01 12:12:12', 'Some content')"
         );
 
         $resource = App\Models\Reactions::queryByArticle($this->database, '1');
@@ -283,8 +282,8 @@ class ModelsReactionsTest extends \PHPUnit\Framework\TestCase
     public function testGetById()
     {
         $this->database->query(
-            "INSERT INTO `reactions` (`reactionID`, `articleID`, `score`, `userID`, `publishDate`, `content`) "
-            . "VALUES (1, 1, 0, 1, '2018-01-01 12:12:12', 'Some content')"
+            "INSERT INTO `reactions` (`reactionID`, `articleID`, `userID`, `publishDate`, `content`) "
+            . "VALUES (1, 1, 1, '2018-01-01 12:12:12', 'Some content')"
         );
 
         $answer = App\Models\Reactions::getById($this->database, '1');

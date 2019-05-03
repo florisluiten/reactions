@@ -129,8 +129,8 @@ class Reactions
         $now = (new \Datetime())->format('Y-m-d H:i:s');
 
         $statement = $database->prepare(
-            "INSERT INTO `reactions` (`parentID`, `articleID`, `score`, `userID`, `publishDate`, `content`)"
-            . " VALUES(:PARENTID, :ARTICLEID, 0, :USERID, :NOW, :CONTENT)"
+            "INSERT INTO `reactions` (`parentID`, `articleID`, `userID`, `publishDate`, `content`)"
+            . " VALUES(:PARENTID, :ARTICLEID, :USERID, :NOW, :CONTENT)"
         );
 
         $statement->bindParam(':PARENTID', $reaction->parentID);

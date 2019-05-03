@@ -48,7 +48,6 @@ class ModelsScoresTest extends \PHPUnit\Framework\TestCase
             "CREATE TABLE `reactions` ( `reactionID` INTEGER PRIMARY KEY AUTOINCREMENT, "
             . "`parentID` BIGINT UNSIGNED NULL DEFAULT NULL, "
             . "`articleID` BIGINT UNSIGNED NOT NULL, "
-            . "`score` INT NULL DEFAULT 0, "
             . "`userID` BIGINT UNSIGNED NULL, "
             . "`publishDate` VARCHAR(45) NULL, "
             . "`content` TEXT NOT NULL, "
