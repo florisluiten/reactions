@@ -171,11 +171,6 @@ class Reactions
 
         $result = $statement->fetch();
 
-        if ($result === false) {
-            // Yeah, SQLite returns false, where MySQLI returns null
-            return null;
-        }
-
-        return $result;
+        return ($result === false) ? null : $result;
     }
 }
