@@ -17,6 +17,7 @@ COPY assets/docker/run /usr/local/bin/run
 COPY assets/docker/setupreactions /usr/local/bin/setupreactions
 RUN chmod +x /usr/local/bin/setupreactions
 RUN /usr/local/bin/setupreactions
+COPY . /var/www/
 
 RUN chmod +x /usr/local/bin/run
 RUN a2enmod rewrite
