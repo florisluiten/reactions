@@ -1,5 +1,12 @@
 <?php
 /**
+ * Article index
+ *
+ * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
+ */
+
+/**
  * Macro for rendering a reaction
  *
  * @param App\Reaction[] $reactions The reactions

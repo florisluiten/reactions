@@ -2,9 +2,8 @@
 /**
  * Test for Models\Reactions
  *
- * @author     Floris Luiten <floris@florisluiten.nl>
  * @package    Reactions
- * @subpackage Tests
+ * @author     Floris Luiten <floris@florisluiten.nl>
  */
 
 declare(strict_types=1);

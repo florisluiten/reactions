@@ -2,8 +2,8 @@
 /**
  * Index - Start point for any HTTP request
  *
- * @author  Floris Luiten <floris@florisluiten.nl>
  * @package Reactions
+ * @author  Floris Luiten <floris@florisluiten.nl>
  */
 require_once '../src/Bootstrap.php';
 
