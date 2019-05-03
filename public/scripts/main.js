@@ -50,6 +50,8 @@
 				select = document.createElement('select'),
 				el = null;
 
+			select.classList.add('form-control');
+
 			for (var i = self.scoreMinThreshold; i <= self.scoreMaxThreshold; i++) {
 				el = document.createElement('option');
 				el.setAttribute('value', i);
@@ -63,6 +65,7 @@
 			el = document.createElement('input');
 			el.setAttribute('type', 'submit');
 			el.setAttribute('value', 'Pas filter toe');
+			el.classList.add('btn', 'btn-default');
 
 			form.appendChild(el);
 

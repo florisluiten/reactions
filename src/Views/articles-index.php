@@ -23,14 +23,14 @@ function renderReactions(array $reactions, stdClass $user)
         if ($reaction['userID'] != $user->userID) {
             echo '<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
 			<label for="score-1">Score</label>
-			<select name="score" id="score-1">
+			<select name="score" id="score-1" class="form-control">
 				<option value="-1">-1</option>
 				<option value="0">0</option>
 				<option value="1">+1</option>
 				<option value="2">+2</option>
 				<option value="3">+3</option>
 			</select>
-			<input type="submit" value="Geef deze score">
+			<input type="submit" value="Geef deze score" class="btn btn-default">
 		</form>';
         }
 
@@ -40,9 +40,9 @@ function renderReactions(array $reactions, stdClass $user)
 		<div class="usercontent">' . $reaction['content'] . '</div>
 		<form method="POST" action="?">
 			<label for="reaction">Reageer:</label>
-			<textarea name="reaction"></textarea>
+			<textarea name="reaction" class="form-control"></textarea>
 			<input type="hidden" name="replyto" value="' . $reaction['reactionID'] . '">
-			<input type="submit" value="send">
+			<input type="submit" value="Plaats reactie" class="btn btn-primary">
 		</form>
 		</div>
 		<ol>';
@@ -128,8 +128,8 @@ function scoreToWord(string $score)
                 </ol>
                 <form method="POST" action="?">
                     <label for="reaction">Reageer:</label>
-                    <textarea name="reaction"></textarea>
-                    <input type="submit" value="send">
+                    <textarea name="reaction" class="form-control"></textarea>
+                    <input type="submit" value="Plaats reactie" class="btn btn-primary">
                 </form>
             </section>
         </div>
