@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm /var/www/env.php
+
+echo "<?php return array('PDO' => array('DSN' => 'mysql:host=database;dbname=reactions', 'username' => 'reactionsweb', 'password' => 'mysecret123'));" > /var/www/env.php

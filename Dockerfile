@@ -14,6 +14,10 @@ COPY assets/docker/apache/000-default.conf /etc/apache2/sites-available/000-defa
 COPY assets/docker/apache/ports.conf /etc/apache2/ports.conf
 COPY assets/docker/run /usr/local/bin/run
 
+COPY assets/docker/setupreactions /usr/local/bin/setupreactions
+RUN chmod +x /usr/local/bin/setupreactions
+RUN /usr/local/bin/setupreactions
+
 RUN chmod +x /usr/local/bin/run
 RUN a2enmod rewrite
 
