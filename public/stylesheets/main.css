@@ -32,10 +32,10 @@ ol.reactions li .currentscore.low {
 	background-color: #f64;
 }
 ol.reactions li .currentscore.good {
-	background-color: #e5e577;
+	background-color: #ee7;
 }
 ol.reactions li .currentscore.high {
-	background-color: #ff2;
+	background-color: #dd0;
 }
 ol.reactions li .currentscore.veryhigh {
 	background-color: #6f4;
