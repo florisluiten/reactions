@@ -119,8 +119,8 @@ class Reactions
     /**
      * Add a new comment
      *
-     * @param \PDO $database The database connection
-     * @param App\Models\Reaction $reaction The reaction
+     * @param \PDO                 $database The database connection
+     * @param App\Models\Reactions $reaction The reaction
      *
      * @return boolean True on success, false otherwise
      */
