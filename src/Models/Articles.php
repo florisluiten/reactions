@@ -34,7 +34,9 @@ class Articles
      */
     public function queryById(\PDO $database, string $ID): ? \PDOStatement
     {
-        $statement = $database->prepare('SELECT `articleID`, `content`, `title` FROM `articles` WHERE `articleID` = :ID');
+        $statement = $database->prepare(
+            'SELECT `articleID`, `content`, `title` FROM `articles` WHERE `articleID` = :ID'
+        );
         $statement->bindParam(':ID', $ID);
 
         $statement->setFetchMode(\PDO::FETCH_CLASS, __CLASS__);
