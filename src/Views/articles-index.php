@@ -10,15 +10,18 @@
  * Macro for rendering a reaction
  *
  * @param App\Reaction[] $reactions The reactions
+ * @param stdClass       $user      The current user
  *
  * @return void
  */
-function renderReactions(array $reactions)
+function renderReactions(array $reactions, stdClass $user)
 {
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction">
-		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>
-		<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
+		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>';
+
+        if ($reaction['userID'] != $user->userID) {
+            echo '<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
 			<label for="score-1">Score</label>
 			<select name="score" id="score-1">
 				<option value="-1">-1</option>
@@ -28,8 +31,10 @@ function renderReactions(array $reactions)
 				<option value="3">+3</option>
 			</select>
 			<input type="submit" value="Geef deze score">
-		</form>
-		<div class="currentscore ' . scoreToWord($reaction['score']) . '">'
+		</form>';
+        }
+
+        echo '<div class="currentscore ' . scoreToWord($reaction['score']) . '">'
         . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
 		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
@@ -40,7 +45,7 @@ function renderReactions(array $reactions)
 			<input type="submit" value="send">
 		</form>
 		<ol>';
-        renderReactions($reaction['children']);
+        renderReactions($reaction['children'], $user);
         echo ' </ol> </li>';
     }
 }
@@ -116,7 +121,7 @@ function scoreToWord(string $score)
                     <a href="?reverse">Nieuwste bericht eerst</a>
                 <div>
                 <ol class="reactions">
-<?php renderReactions($reactions); ?>
+<?php renderReactions($reactions, $user); ?>
                 </ol>
                 <form method="POST" action="?">
                     <label for="reaction">Reageer:</label>
