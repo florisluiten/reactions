@@ -22,6 +22,7 @@ ol.reactions li .currentscore {
 	font-size: 2em;
 	color: #fff;
 	background-color: #ccc;
+	border: 1px solid #bfbfbf;
 	padding: 7px 10px;
 	width: 50px;
 	height: 50px;
@@ -30,15 +31,19 @@ ol.reactions li .currentscore {
 }
 ol.reactions li .currentscore.low {
 	background-color: #f64;
+	border-color: #ff3103;
 }
 ol.reactions li .currentscore.good {
 	background-color: #ee7;
+	border-color: #e6e637;
 }
 ol.reactions li .currentscore.high {
 	background-color: #dd0;
+	border-color: #c8c800;
 }
 ol.reactions li .currentscore.veryhigh {
 	background-color: #6f4;
+	border-color: #2efb00;
 }
 ol.reactions li time {
 	font-size: .9em;
