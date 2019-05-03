@@ -20,6 +20,12 @@ abstract class Base
     protected $database;
 
     /**
+     * @var mixed The default view data. Is overridden by any value from
+     * the $data passed in parseView
+     */
+    protected $defaultViewData;
+
+    /**
      * Constructor
      *
      * @param \PDO $database The database
@@ -41,6 +47,10 @@ abstract class Base
      */
     protected function parseView(string $view, array $data = array()): string
     {
+        foreach ($this->defaultViewData as $key => $value) {
+            $$key = $value;
+        }
+
         foreach ($data as $key => $value) {
             $$key = $value;
         }
