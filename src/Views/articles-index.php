@@ -7,6 +7,20 @@
  */
 
 /**
+ * Macro for escaping data, so it can be used in HTML safely. This ensures
+ * that the UTF-8 string does not contain anything that can be valid HTML,
+ * preventing XSS.
+ *
+ * @param string $string The input string
+ *
+ * @return string The escaped string
+ */
+function escape($string)
+{
+    return htmlentities($string, 0, 'UTF-8');
+}
+
+/**
  * Macro for rendering a reaction
  *
  * @param App\Reaction[] $reactions The reactions
@@ -34,8 +48,8 @@ function renderReactions(array $reactions, stdClass $user)
         }
 
         echo '<div class="currentscore ' . scoreToWord($reaction['score']) . '">'
-        . htmlentities($reaction['score'], 0, 'UTF-8') . '</div>
-		<time datetime="2019-04-29 21:32">' . htmlentities($reaction['publishDate'], 0, 'UTF-8') . '</time>
+        . escape($reaction['score']) . '</div>
+		<time datetime="2019-04-29 21:32">' . escape($reaction['publishDate']) . '</time>
 		<div class="usercontent">' . $reaction['content'] . '</div>
 		<details>
 			<summary>Reageer</summary>
@@ -115,7 +129,7 @@ function scoreToWord(string $score)
         </div>
         <div class="container">
             <main>
-                <h1><?php echo htmlentities($article->title, 0, 'UTF-8'); ?></h1>
+                <h1><?php echo escape($article->title); ?></h1>
                 <?php echo $article->content; ?>
             </main>
             <section class="reactions">
