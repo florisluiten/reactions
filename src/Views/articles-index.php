@@ -32,7 +32,7 @@ function renderReactions(array $reactions, stdClass $user)
 {
     foreach ($reactions as $i => $reaction) {
         echo '<li class="reaction"><div class="wrapper" data-score="' . $reaction['score'] . '">
-		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . $reaction['username'] . '</a></h2>';
+		<h2><img src="' . $reaction['userimage'] . '"><a href="#">' . escape($reaction['username']) . '</a></h2>';
 
         if ($reaction['userID'] != $user->userID) {
             echo '<form method="POST" action="/score/' . $reaction['reactionID'] . '" class="score-reaction">
@@ -121,7 +121,7 @@ function scoreToWord(string $score)
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">
-                            Ingelogd als: <strong><?php echo $user->username; ?></strong>
+                            Ingelogd als: <strong><?php echo escape($user->username); ?></strong>
                         </a>
                     </li>
                 </ul>
